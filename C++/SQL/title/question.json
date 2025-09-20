@@ -1,0 +1,27 @@
+{
+    "subjectNumber":1,
+    "difficultyCalculate":[
+        {"difficulty_id":0,"difficultyName":"入门","count":1},
+        {"difficulty_id":1,"difficultyName":"简单","count":0},
+        {"difficulty_id":2,"difficultyName":"中等","count":0},
+        {"difficulty_id":3,"difficultyName":"困难","count":0}
+    ],
+    "typeCalculate":[
+        {"type_id":0,"typeName":"无类型","count":1},
+        {"type_id":1,"typeName":"动态规划","count":0},
+        {"type_id":2,"typeName":"前缀和","count":0},
+        {"type_id":3,"typeName":"贪心","count":0}
+    ],
+    "subjects":[
+        {
+        "question_id":0,
+        "name":"P1001 A+B Problem",
+        "path":"./0001/",
+        "source":"Luogu P1001",
+        "difficulty_id":0,
+        "type_id":"0"
+    }
+    ]
+    
+}
+    
