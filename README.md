@@ -12,6 +12,7 @@ make -j
 ./c_project
 ```
 打开`/newVue/Db-frontend`
+
 `./start.sh`
 
 
