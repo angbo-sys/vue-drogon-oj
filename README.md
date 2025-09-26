@@ -4,4 +4,16 @@
 
 目前正在开发中...
 
-进入 'c++/build'
+打开 `c++/build`
+``` bash
+rm -rf ./*
+cmake ..
+make -j
+./c_project
+```
+打开`/newVue/Db-frontend`
+`./start.sh`
+
+
+
+
