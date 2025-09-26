@@ -94,12 +94,12 @@
               </div>
               
               <div class="detail-item">
-                <el-icon><MemoryCard /></el-icon>
+                <el-icon><Cpu /></el-icon>
                 <span>{{ submission.memory_usage || 0 }}KB</span>
               </div>
               
               <div class="detail-item">
-                <el-icon><Code /></el-icon>
+                <el-icon><Document /></el-icon>
                 <span>{{ submission.language?.toUpperCase() || 'CPP' }}</span>
               </div>
             </div>
@@ -132,7 +132,7 @@
 <script>
 import { ref, computed, onMounted } from 'vue'
 import { useProblemStore } from '@/stores/problem'
-import { Clock, MemoryCard, Code } from '@element-plus/icons-vue'
+import { Clock, Cpu, Document } from '@element-plus/icons-vue'
 
 export default {
   name: 'SubmissionHistory',
@@ -213,8 +213,8 @@ export default {
       formatTime,
       handleFilter,
       Clock,
-      MemoryCard,
-      Code
+      Cpu,
+      Document
     }
   }
 }

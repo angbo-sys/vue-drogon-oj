@@ -5,7 +5,7 @@ import Cookies from 'js-cookie'
 // 创建axios实例
 const api = axios.create({
   baseURL: process.env.VUE_APP_API_BASE_URL || 'http://localhost:5555',
-  timeout: 10000,
+  // 移除超时限制，让AI有足够时间思考
   headers: {
     'Content-Type': 'application/json'
   }
@@ -26,7 +26,13 @@ api.interceptors.request.use(
       config.headers['user-id'] = userId
     }
     
-    console.log('API Request:', config.method?.toUpperCase(), config.url, config.data)
+    console.log('API Request:', config.method?.toUpperCase(), config.url, {
+      headers: {
+        'Authorization': config.headers.Authorization ? 'Bearer ***' : '未设置',
+        'user-id': config.headers['user-id'] || '未设置'
+      },
+      data: config.data
+    })
     return config
   },
   error => {

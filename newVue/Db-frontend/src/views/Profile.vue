@@ -188,15 +188,35 @@ export default {
     
     // 加载数据
     const loadData = async () => {
-      await Promise.all([
-        problemStore.fetchSubmissions(),
-        problemStore.fetchStatistics()
-      ])
-      statistics.value = problemStore.statistics
+      // 检查用户是否已登录
+      if (!userStore.isLoggedIn) {
+        console.warn('用户未登录，无法获取个人统计数据')
+        return
+      }
+      
+      const userId = userStore.userId
+      console.log('加载用户数据，用户ID:', userId)
+      
+      try {
+        await Promise.all([
+          problemStore.fetchSubmissions(userId),  // 传递用户ID
+          problemStore.fetchStatistics(userId)    // 传递用户ID
+        ])
+        statistics.value = problemStore.statistics
+        console.log('统计数据加载完成:', statistics.value)
+      } catch (error) {
+        console.error('加载数据失败:', error)
+      }
     }
     
     onMounted(() => {
-      loadData()
+      // 确保用户已登录后再加载数据
+      if (userStore.checkAuth()) {
+        loadData()
+      } else {
+        console.warn('用户认证失败，跳转到登录页')
+        // 可以在这里添加跳转到登录页的逻辑
+      }
     })
     
     return {

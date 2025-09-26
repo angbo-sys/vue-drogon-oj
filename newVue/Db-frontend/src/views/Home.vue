@@ -40,36 +40,48 @@
       <div class="container">
         <h2 class="section-title">平台特色</h2>
         <div class="features-grid">
-          <div class="feature-card">
+          <div class="feature-card" @click="navigateToProblems">
             <div class="feature-icon">
-              <el-icon><Code /></el-icon>
+              <el-icon><Document /></el-icon>
             </div>
             <h3>在线编程</h3>
             <p>支持C++代码在线编写、编译和运行</p>
+            <div class="card-arrow">
+              <el-icon><ArrowRight /></el-icon>
+            </div>
           </div>
           
-          <div class="feature-card">
+          <div class="feature-card" @click="navigateToProblems">
             <div class="feature-icon">
               <el-icon><Trophy /></el-icon>
             </div>
             <h3>题目练习</h3>
             <p>丰富的算法题目，从入门到进阶</p>
+            <div class="card-arrow">
+              <el-icon><ArrowRight /></el-icon>
+            </div>
           </div>
           
-          <div class="feature-card">
+          <div class="feature-card" @click="navigateToSubmissions">
             <div class="feature-icon">
               <el-icon><DataAnalysis /></el-icon>
             </div>
             <h3>实时评测</h3>
             <p>即时反馈代码执行结果和性能分析</p>
+            <div class="card-arrow">
+              <el-icon><ArrowRight /></el-icon>
+            </div>
           </div>
           
-          <div class="feature-card">
+          <div class="feature-card" @click="navigateToProfile">
             <div class="feature-icon">
               <el-icon><User /></el-icon>
             </div>
             <h3>个人中心</h3>
             <p>记录学习进度，查看提交历史</p>
+            <div class="card-arrow">
+              <el-icon><ArrowRight /></el-icon>
+            </div>
           </div>
         </div>
       </div>
@@ -102,17 +114,44 @@
 
 <script>
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { useProblemStore } from '@/stores/problem'
-import { Code, Trophy, DataAnalysis, User } from '@element-plus/icons-vue'
+import { Document, Trophy, DataAnalysis, User, ArrowRight } from '@element-plus/icons-vue'
 
 export default {
   name: 'HomePage',
   setup() {
+    const router = useRouter()
     const userStore = useUserStore()
     const problemStore = useProblemStore()
     
     const statistics = ref({})
+    
+    // 路由跳转方法
+    const navigateToProblems = () => {
+      if (userStore.isLoggedIn) {
+        router.push('/problems')
+      } else {
+        router.push('/login')
+      }
+    }
+    
+    const navigateToSubmissions = () => {
+      if (userStore.isLoggedIn) {
+        router.push('/submissions')
+      } else {
+        router.push('/login')
+      }
+    }
+    
+    const navigateToProfile = () => {
+      if (userStore.isLoggedIn) {
+        router.push('/profile')
+      } else {
+        router.push('/login')
+      }
+    }
     
     const loadStatistics = async () => {
       if (userStore.isLoggedIn) {
@@ -130,10 +169,14 @@ export default {
     return {
       userStore,
       statistics,
-      Code,
+      navigateToProblems,
+      navigateToSubmissions,
+      navigateToProfile,
+      Document,
       Trophy,
       DataAnalysis,
-      User
+      User,
+      ArrowRight
     }
   }
 }
@@ -204,12 +247,20 @@ export default {
   border-radius: 12px;
   text-align: center;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 
 .feature-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.feature-card:active {
+  transform: translateY(-2px);
 }
 
 .feature-icon {
@@ -229,6 +280,23 @@ export default {
   color: #7f8c8d;
   line-height: 1.6;
   font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.card-arrow {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #409eff;
+  font-size: 20px;
+  opacity: 0;
+  transition: all 0.3s ease;
+  transform: translateX(10px);
+}
+
+.feature-card:hover .card-arrow {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .stats-section {

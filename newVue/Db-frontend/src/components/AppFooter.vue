@@ -3,7 +3,7 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-info">
-          <h3>OJ Platform</h3>
+          <h3>Db Platform</h3>
           <p>在线编程练习平台</p>
           <p>支持C++代码在线编译和运行</p>
         </div>

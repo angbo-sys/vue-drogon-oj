@@ -21,6 +21,9 @@
                     {{ isFavorited ? '已收藏' : '收藏' }}
                   </el-button>
                   <el-button @click="shareProblem" icon="Share">分享</el-button>
+                  <el-button type="success" @click="openAIChat" icon="ChatDotRound">
+                    AI助手
+                  </el-button>
                 </div>
               </div>
             </template>
@@ -162,19 +165,94 @@
         </el-col>
       </el-row>
     </div>
+
+    <!-- AI聊天窗口 -->
+    <div v-if="showAIChat" class="ai-chat-overlay" @click="closeAIChat">
+      <div class="ai-chat-window" @click.stop>
+        <div class="ai-chat-header">
+          <div class="ai-chat-title">
+            <el-icon><ChatDotRound /></el-icon>
+            <span>AI题目助手</span>
+          </div>
+          <el-button @click="closeAIChat" circle size="small" text>
+            <el-icon><Close /></el-icon>
+          </el-button>
+        </div>
+        
+        <div class="ai-chat-messages" ref="chatMessagesRef">
+          <div 
+            v-for="(message, index) in chatMessages" 
+            :key="index"
+            class="chat-message"
+            :class="message.type"
+          >
+            <div class="message-avatar">
+              <el-icon v-if="message.type === 'user'"><User /></el-icon>
+              <el-icon v-else><Robot /></el-icon>
+            </div>
+            <div class="message-content">
+              <div class="message-text" v-html="renderMarkdown(message.content)"></div>
+              <div class="message-time">{{ formatTime(message.timestamp) }}</div>
+            </div>
+          </div>
+          
+          <!-- 加载状态 -->
+          <div v-if="aiLoading" class="chat-message ai">
+            <div class="message-avatar">
+              <el-icon><Robot /></el-icon>
+            </div>
+            <div class="message-content">
+              <div class="message-text">
+                <el-icon class="loading-icon"><Loading /></el-icon>
+                AI正在思考中...
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="ai-chat-input">
+          <el-input
+            v-model="chatInput"
+            placeholder="询问关于这道题的任何问题..."
+            @keyup.enter="sendMessage"
+            :disabled="aiLoading"
+            class="chat-input-field"
+          >
+            <template #append>
+              <el-button 
+                @click="sendMessage" 
+                :loading="aiLoading"
+                :disabled="!chatInput.trim()"
+                type="primary"
+              >
+                发送
+              </el-button>
+            </template>
+          </el-input>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 import { useProblemStore } from '@/stores/problem'
 import { useUserStore } from '@/stores/user'
 import { ElMessage } from 'element-plus'
 import MarkdownIt from 'markdown-it'
+import { ChatDotRound, Close, User, Robot, Loading } from '@element-plus/icons-vue'
 
 export default {
   name: 'ProblemDetail',
+  components: {
+    ChatDotRound,
+    Close,
+    User,
+    Robot,
+    Loading
+  },
   setup() {
     const route = useRoute()
     const problemStore = useProblemStore()
@@ -185,6 +263,13 @@ export default {
     const selectedLanguage = ref('cpp')
     const submissionResult = ref(null)
     const isFavorited = ref(false)
+    
+    // AI聊天相关状态
+    const showAIChat = ref(false)
+    const chatMessages = ref([])
+    const chatInput = ref('')
+    const aiLoading = ref(false)
+    const chatMessagesRef = ref(null)
     
     // 初始化markdown渲染器
     const md = new MarkdownIt({
@@ -364,6 +449,105 @@ rl.on('line', (line) => {
       submissionResult.value = null
     }
     
+    // AI聊天相关方法
+    const openAIChat = () => {
+      showAIChat.value = true
+      // 添加欢迎消息
+      if (!chatMessages.value || chatMessages.value.length === 0) {
+        addMessage('ai', `你好！我是AI题目助手，可以帮你解读题目"${problem.value?.name || '这道题'}"。你可以问我关于题目理解、解题思路、算法分析等问题。`)
+      }
+    }
+    
+    const closeAIChat = () => {
+      showAIChat.value = false
+    }
+    
+    const addMessage = (type, content) => {
+      console.log('添加消息:', { type, content })
+      if (!chatMessages.value) {
+        chatMessages.value = []
+      }
+      const messageObj = {
+        type,
+        content,
+        timestamp: new Date()
+      }
+      console.log('消息对象:', messageObj)
+      chatMessages.value.push(messageObj)
+      console.log('当前消息列表:', chatMessages.value)
+      // 滚动到底部
+      nextTick(() => {
+        if (chatMessagesRef.value) {
+          chatMessagesRef.value.scrollTop = chatMessagesRef.value.scrollHeight
+        }
+      })
+    }
+    
+    const formatTime = (timestamp) => {
+      return timestamp.toLocaleTimeString('zh-CN', { 
+        hour: '2-digit', 
+        minute: '2-digit' 
+      })
+    }
+    
+    // Markdown渲染函数
+    const renderMarkdown = (content) => {
+      if (!content) return ''
+      
+      // 创建MarkdownIt实例
+      const md = new MarkdownIt({
+        html: true,
+        linkify: true,
+        typographer: true,
+        breaks: true
+      })
+      
+      // 渲染Markdown为HTML
+      return md.render(content)
+    }
+    
+    const sendMessage = async () => {
+      if (!chatInput.value.trim() || aiLoading.value) return
+      
+      const userMessage = chatInput.value.trim()
+      chatInput.value = ''
+      
+      // 添加用户消息
+      addMessage('user', userMessage)
+      
+      // 设置加载状态
+      aiLoading.value = true
+      
+      try {
+        // 调用AI聊天API - 移除超时限制，让AI有足够时间思考
+        const result = await problemStore.chatWithAI({
+          user_id: userStore.userId,
+          question_id: parseInt(route.params.id),
+          message: userMessage,
+          problem_info: {
+            name: problem.value?.name,
+            description: problem.value?.description,
+            difficulty: problem.value?.difficulty_id,
+            tags: problem.value?.tags
+          }
+        })
+        
+        console.log('AI聊天结果:', result)
+        if (result.success) {
+          console.log('AI回复内容:', result.data.response)
+          addMessage('ai', result.data.response)
+        } else {
+          console.log('AI聊天失败:', result.message)
+          addMessage('ai', '抱歉，我暂时无法回答这个问题。请稍后再试。')
+        }
+      } catch (error) {
+        console.error('AI chat error:', error)
+        addMessage('ai', '抱歉，发生了错误。请稍后再试。')
+      } finally {
+        aiLoading.value = false
+      }
+    }
+    
     
     onMounted(async () => {
       console.log('ProblemDetail mounted, route params:', route.params)
@@ -389,7 +573,18 @@ rl.on('line', (line) => {
       shareProblem,
       clearResult,
       changeLanguage,
-      onCodeChange
+      onCodeChange,
+      // AI聊天相关
+      showAIChat,
+      chatMessages,
+      chatInput,
+      aiLoading,
+      chatMessagesRef,
+      openAIChat,
+      closeAIChat,
+      sendMessage,
+      formatTime,
+      renderMarkdown
     }
   }
 }
@@ -794,6 +989,250 @@ rl.on('line', (line) => {
   
   .stat-value {
     color: #ffffff;
+  }
+}
+
+/* AI聊天窗口样式 */
+.ai-chat-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ai-chat-window {
+  width: 500px;
+  height: 600px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ai-chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.ai-chat-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 1.1rem;
+}
+
+.ai-chat-messages {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.chat-message {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.chat-message.user {
+  flex-direction: row-reverse;
+}
+
+.message-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.chat-message.user .message-avatar {
+  background: #007bff;
+  color: white;
+}
+
+.chat-message.ai .message-avatar {
+  background: #28a745;
+  color: white;
+}
+
+.message-content {
+  max-width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.chat-message.user .message-content {
+  align-items: flex-end;
+}
+
+.message-text {
+  padding: 12px 16px;
+  border-radius: 18px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.chat-message.user .message-text {
+  background: #007bff;
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-message.ai .message-text {
+  background: #f1f3f4;
+  color: #2c3e50;
+  border-bottom-left-radius: 4px;
+}
+
+/* Markdown样式 */
+.message-text h1,
+.message-text h2,
+.message-text h3,
+.message-text h4,
+.message-text h5,
+.message-text h6 {
+  margin: 0.5em 0;
+  font-weight: bold;
+  line-height: 1.3;
+}
+
+.message-text h1 { font-size: 1.2em; }
+.message-text h2 { font-size: 1.1em; }
+.message-text h3 { font-size: 1.05em; }
+
+.message-text p {
+  margin: 0.5em 0;
+  line-height: 1.5;
+}
+
+.message-text ul,
+.message-text ol {
+  margin: 0.5em 0;
+  padding-left: 1.5em;
+}
+
+.message-text li {
+  margin: 0.2em 0;
+  line-height: 1.4;
+}
+
+.message-text code {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+.message-text pre {
+  background: rgba(0, 0, 0, 0.05);
+  padding: 1em;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 0.5em 0;
+}
+
+.message-text pre code {
+  background: none;
+  padding: 0;
+}
+
+.message-text blockquote {
+  border-left: 3px solid #ddd;
+  padding-left: 1em;
+  margin: 0.5em 0;
+  color: #666;
+}
+
+.message-text strong {
+  font-weight: bold;
+}
+
+.message-text em {
+  font-style: italic;
+}
+
+.message-text a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.message-text a:hover {
+  text-decoration: underline;
+}
+
+.message-text hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 1em 0;
+}
+
+.message-time {
+  font-size: 0.75rem;
+  color: #6c757d;
+  padding: 0 4px;
+}
+
+.loading-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.ai-chat-input {
+  padding: 16px 20px;
+  border-top: 1px solid #e9ecef;
+  background: #f8f9fa;
+}
+
+.chat-input-field {
+  width: 100%;
+}
+
+.chat-input-field :deep(.el-input__inner) {
+  border-radius: 20px;
+  border: 1px solid #dcdfe6;
+}
+
+.chat-input-field :deep(.el-input-group__append) {
+  border-radius: 0 20px 20px 0;
+  border-left: none;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .ai-chat-window {
+    width: 90vw;
+    height: 80vh;
+    margin: 20px;
+  }
+  
+  .message-content {
+    max-width: 85%;
   }
 }
 </style>

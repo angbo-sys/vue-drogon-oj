@@ -42,6 +42,8 @@ add_executable(${PROJECT_NAME} main.cc
         services/CodeExecutor.cpp
         services/SubmissionService.h
         services/SubmissionService.cpp
+        services/AIChatService.h
+        services/AIChatService.cpp
         controllers/SubmissionController.h
         controllers/SubmissionController.cpp
         controllers/QuestionController.h

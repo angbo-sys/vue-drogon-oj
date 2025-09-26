@@ -1,5 +1,5 @@
 {
-    "submissionNumber" : 46,
+    "submissionNumber" : 59,
     "submissions" : 
     [
         {
@@ -825,62 +825,349 @@
         {
             "code" : "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    cout << a + b << endl;\n    return 0;\n}",
             "error" : "",
-            "execution_time" : 0.017272611,
+            "execution_time" : 0.44704608699999998,
             "language" : "cpp",
             "memory_usage" : 0,
             "message" : "All test cases passed",
             "output" : "",
             "question_id" : 0,
             "status" : "AC",
-            "submission_id" : "1758376416_788946",
-            "submitted_at" : "1758376417",
+            "submission_id" : "1758846404_976245",
+            "submitted_at" : "1758846406",
             "test_case_results" : 
             [
                 "Test case 1: AC",
                 "Test case 2: AC",
                 "Test case 3: AC"
             ],
-            "user_id" : "6821"
+            "user_id" : "5726"
         },
         {
             "code" : "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    cout << a + b << endl;\n    return 0;\n}",
             "error" : "",
-            "execution_time" : 0.0059573810000000003,
+            "execution_time" : 0.49677785699999999,
             "language" : "cpp",
             "memory_usage" : 0,
             "message" : "All test cases passed",
             "output" : "",
             "question_id" : 0,
             "status" : "AC",
-            "submission_id" : "1758376453_681083",
-            "submitted_at" : "1758376454",
+            "submission_id" : "1758847936_383393",
+            "submitted_at" : "1758847937",
             "test_case_results" : 
             [
                 "Test case 1: AC",
                 "Test case 2: AC",
                 "Test case 3: AC"
             ],
-            "user_id" : "6821"
+            "user_id" : "4469"
         },
         {
             "code" : "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    cout << a + b << endl;\n    return 0;\n}",
             "error" : "",
-            "execution_time" : 0.006400963,
+            "execution_time" : 0.33050179000000002,
             "language" : "cpp",
             "memory_usage" : 0,
             "message" : "All test cases passed",
             "output" : "",
             "question_id" : 0,
             "status" : "AC",
-            "submission_id" : "1758376454_363924",
-            "submitted_at" : "1758376455",
+            "submission_id" : "1758847938_485651",
+            "submitted_at" : "1758847940",
             "test_case_results" : 
             [
                 "Test case 1: AC",
                 "Test case 2: AC",
                 "Test case 3: AC"
             ],
-            "user_id" : "6821"
+            "user_id" : "4469"
+        },
+        {
+            "code" : "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        int a = scanner.nextInt();\n        int b = scanner.nextInt();\n        System.out.println(a + b);\n    }\n}",
+            "error" : "/tmp/code_executor/code_1758848342790_114807987.cpp:1:1: error: unknown type name 'import'\n    1 | import java.util.Scanner;\n      | ^\n/tmp/code_executor/code_1758848342790_114807987.cpp:1:12: error: expected ';' after top level declarator\n    1 | import java.util.Scanner;\n      |            ^\n      |            ;\n/tmp/code_executor/code_1758848342790_114807987.cpp:3:1: error: expected unqualified-id\n    3 | public class Main {\n      | ^\n3 errors generated.\n",
+            "execution_time" : 0.0,
+            "language" : "java",
+            "memory_usage" : 0,
+            "message" : "Compilation failed",
+            "output" : "",
+            "question_id" : 0,
+            "status" : "CE",
+            "submission_id" : "1758848342_739562",
+            "submitted_at" : "1758848342",
+            "test_case_results" : [],
+            "user_id" : "4469"
+        },
+        {
+            "code" : "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    cou << a + b << endl;\n    return 0;\n}",
+            "error" : "/tmp/code_executor/code_1758848375609_1137522503.cpp:7:5: error: use of undeclared identifier 'cou'; did you mean 'cout'?\n    7 |     cou << a + b << endl;\n      |     ^~~\n      |     cout\n/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:57:42: note: 'cout' declared here\n   57 | extern _LIBCPP_EXPORTED_FROM_ABI ostream cout;\n      |                                          ^\n1 error generated.\n",
+            "execution_time" : 0.0,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "Compilation failed",
+            "output" : "",
+            "question_id" : 0,
+            "status" : "CE",
+            "submission_id" : "1758848375_271157",
+            "submitted_at" : "1758848376",
+            "test_case_results" : [],
+            "user_id" : "4469"
+        },
+        {
+            "code" : "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    cout << a - b << endl;\n    return 0;\n}",
+            "error" : "",
+            "execution_time" : 0.44204855999999998,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "Wrong answer on test case 1",
+            "output" : "-1\n",
+            "question_id" : 0,
+            "status" : "WA",
+            "submission_id" : "1758848454_818493",
+            "submitted_at" : "1758848455",
+            "test_case_results" : [],
+            "user_id" : "4469"
+        },
+        {
+            "code" : "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    cout << a + b << endl;\n    return 0;\n}",
+            "error" : "",
+            "execution_time" : 0.50133654400000005,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "All test cases passed",
+            "output" : "",
+            "question_id" : 0,
+            "status" : "AC",
+            "submission_id" : "1758849219_658024",
+            "submitted_at" : "1758849220",
+            "test_case_results" : 
+            [
+                "Test case 1: AC",
+                "Test case 2: AC",
+                "Test case 3: AC"
+            ],
+            "user_id" : "4469"
+        },
+        {
+            "code" : "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    cout << a + b << endl;\n    return 0;\n}",
+            "error" : "",
+            "execution_time" : 0.45986474300000002,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "All test cases passed",
+            "output" : "",
+            "question_id" : 0,
+            "status" : "AC",
+            "submission_id" : "1758849258_371051",
+            "submitted_at" : "1758849260",
+            "test_case_results" : 
+            [
+                "Test case 1: AC",
+                "Test case 2: AC",
+                "Test case 3: AC"
+            ],
+            "user_id" : "4469"
+        },
+        {
+            "code" : "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    cout << a + b << endl;\n    return 0;\n}",
+            "error" : "",
+            "execution_time" : 0.43042815499999998,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "All test cases passed",
+            "output" : "",
+            "question_id" : 0,
+            "status" : "AC",
+            "submission_id" : "1758849305_352376",
+            "submitted_at" : "1758849307",
+            "test_case_results" : 
+            [
+                "Test case 1: AC",
+                "Test case 2: AC",
+                "Test case 3: AC"
+            ],
+            "user_id" : "4469"
+        },
+        {
+            "code" : "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    cout << a + b << endl;\n    return 0;\n}",
+            "error" : "",
+            "execution_time" : 0.315415169,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "All test cases passed",
+            "output" : "",
+            "question_id" : 0,
+            "status" : "AC",
+            "submission_id" : "1758849309_598366",
+            "submitted_at" : "1758849310",
+            "test_case_results" : 
+            [
+                "Test case 1: AC",
+                "Test case 2: AC",
+                "Test case 3: AC"
+            ],
+            "user_id" : "4469"
+        },
+        {
+            "code" : "\n#include <iostream>\nusing namespace std;\nint main() {\n    int a, b;\n    cin >> a >> b;\n    cout << a + b << endl;\n    return 0;\n}\n",
+            "error" : "",
+            "execution_time" : 0.35871441599999998,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "All test cases passed",
+            "output" : "",
+            "question_id" : 0,
+            "status" : "AC",
+            "submission_id" : "1758849970_670555",
+            "submitted_at" : "1758849972",
+            "test_case_results" : 
+            [
+                "Test case 1: AC",
+                "Test case 2: AC",
+                "Test case 3: AC",
+                "Test case 4: AC",
+                "Test case 5: AC",
+                "Test case 6: AC",
+                "Test case 7: AC",
+                "Test case 8: AC",
+                "Test case 9: AC",
+                "Test case 10: AC"
+            ],
+            "user_id" : "test_user"
+        },
+        {
+            "code" : "\n#include <iostream>\nusing namespace std;\nint main() {\n    string expr;\n    cin >> expr;\n    // Simple evaluation for expressions like \"10+10\"\n    size_t pos = expr.find('+');\n    if (pos != string::npos) {\n        int a = stoi(expr.substr(0, pos));\n        int b = stoi(expr.substr(pos + 1));\n        cout << a + b << endl;\n    }\n    return 0;\n}\n",
+            "error" : "",
+            "execution_time" : 0.36435352399999998,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "All test cases passed",
+            "output" : "",
+            "question_id" : 1,
+            "status" : "AC",
+            "submission_id" : "1758849972_446627",
+            "submitted_at" : "1758849973",
+            "test_case_results" : 
+            [
+                "Test case 1: AC",
+                "Test case 2: AC",
+                "Test case 3: AC",
+                "Test case 4: AC",
+                "Test case 5: AC",
+                "Test case 6: AC",
+                "Test case 7: AC",
+                "Test case 8: AC",
+                "Test case 9: AC",
+                "Test case 10: AC"
+            ],
+            "user_id" : "test_user"
+        },
+        {
+            "code" : "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    cout << a + b << endl;\n    return 0;\n}",
+            "error" : "",
+            "execution_time" : 0.32781528399999998,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "All test cases passed",
+            "output" : "",
+            "question_id" : 1,
+            "status" : "AC",
+            "submission_id" : "1758850365_157677",
+            "submitted_at" : "1758850367",
+            "test_case_results" : 
+            [
+                "Test case 1: AC",
+                "Test case 2: AC",
+                "Test case 3: AC",
+                "Test case 4: AC",
+                "Test case 5: AC",
+                "Test case 6: AC",
+                "Test case 7: AC",
+                "Test case 8: AC",
+                "Test case 9: AC",
+                "Test case 10: AC"
+            ],
+            "user_id" : "4469"
+        },
+        {
+            "code" : "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    cout << a + b << endl;\n    return 0;\n}",
+            "error" : "",
+            "execution_time" : 0.33058346500000002,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "All test cases passed",
+            "output" : "",
+            "question_id" : 0,
+            "status" : "AC",
+            "submission_id" : "1758850373_634448",
+            "submitted_at" : "1758850374",
+            "test_case_results" : 
+            [
+                "Test case 1: AC",
+                "Test case 2: AC",
+                "Test case 3: AC",
+                "Test case 4: AC",
+                "Test case 5: AC",
+                "Test case 6: AC",
+                "Test case 7: AC",
+                "Test case 8: AC",
+                "Test case 9: AC",
+                "Test case 10: AC"
+            ],
+            "user_id" : "4469"
+        },
+        {
+            "code" : "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    cout << a + b << endl;\n    return 0;\n}",
+            "error" : "",
+            "execution_time" : 0.339701947,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "All test cases passed",
+            "output" : "",
+            "question_id" : 1,
+            "status" : "AC",
+            "submission_id" : "1758850394_903132",
+            "submitted_at" : "1758850395",
+            "test_case_results" : 
+            [
+                "Test case 1: AC",
+                "Test case 2: AC",
+                "Test case 3: AC",
+                "Test case 4: AC",
+                "Test case 5: AC",
+                "Test case 6: AC",
+                "Test case 7: AC",
+                "Test case 8: AC",
+                "Test case 9: AC",
+                "Test case 10: AC"
+            ],
+            "user_id" : "4469"
+        },
+        {
+            "code" : "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    cout << a + b << endl;\n    return 0;\n}",
+            "error" : "",
+            "execution_time" : 0.33917617799999999,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "All test cases passed",
+            "output" : "",
+            "question_id" : 0,
+            "status" : "AC",
+            "submission_id" : "1758850402_257087",
+            "submitted_at" : "1758850403",
+            "test_case_results" : 
+            [
+                "Test case 1: AC",
+                "Test case 2: AC",
+                "Test case 3: AC",
+                "Test case 4: AC",
+                "Test case 5: AC",
+                "Test case 6: AC",
+                "Test case 7: AC",
+                "Test case 8: AC",
+                "Test case 9: AC",
+                "Test case 10: AC"
+            ],
+            "user_id" : "4469"
         }
     ]
 }

@@ -1,0 +1,184 @@
+首先创建一个 .env 文件来存储你的 API 密钥：
+
+DEEPSEEK_API_KEY=你的API密钥
+运行本项目
+plaintext
+1
+2. 创建主程序
+创建一个名为 chatbot.py 的文件：
+
+import os
+from dotenv import load_dotenv
+from flask import Flask, request, jsonify
+import requests
+
+# 加载环境变量
+load_dotenv()
+
+app = Flask(__name__)
+
+# DeepSeek API 配置
+DEEPSEEK_API_KEY = os.getenv('DEEPSEEK_API_KEY')
+API_URL = 'https://api.deepseek.com/v1/chat/completions'
+
+def get_bot_response(user_message):
+    headers = {
+        'Authorization': f'Bearer {DEEPSEEK_API_KEY}',
+        'Content-Type': 'application/json'
+    }
+    
+    data = {
+        'messages': [
+            {'role': 'user', 'content': user_message}
+        ],
+        'model': 'deepseek-chat',
+        'temperature': 0.7
+    }
+    
+    response = requests.post(API_URL, headers=headers, json=data)
+    return response.json()['choices'][0]['message']['content']
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    user_message = request.json.get('message', '')
+    bot_response = get_bot_response(user_message)
+    return jsonify({'response': bot_response})
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
+运行本项目
+python
+运行
+
+3. 创建简单的网页界面
+创建一个 templates 文件夹，并在其中创建 index.html：
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>我的聊天机器人</title>
+    <meta charset="UTF-8">
+    <style>
+        .chat-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .chat-box {
+            height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #eee;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .user-message {
+            background-color: #e3f2fd;
+            margin-left: 20%;
+        }
+        .bot-message {
+            background-color: #f5f5f5;
+            margin-right: 20%;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-box" id="chatBox"></div>
+        <div class="input-area">
+            <input type="text" id="userInput" style="width: 80%">
+            <button onclick="sendMessage()">发送</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const userInput = document.getElementById('userInput');
+            const message = userInput.value;
+            if (!message) return;
+
+            // 显示用户消息
+            addMessage(message, true);
+            userInput.value = '';
+
+            // 发送到服务器
+            fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                addMessage(data.response, false);
+            });
+        }
+
+        function addMessage(message, isUser) {
+            const chatBox = document.getElementById('chatBox');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+            messageDiv.textContent = message;
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // 按回车发送消息
+        document.getElementById('userInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
+运行本项目
+html
+
+进阶定制
+1. 个性化设置
+你可以通过修改 API 调用参数来调整机器人的行为：
+
+data = {
+    'messages': [
+        # 设置机器人的角色和个性
+        {'role': 'system', 'content': '你是一个专业的客服助手，性格温和友善'},
+        {'role': 'user', 'content': user_message}
+    ],
+    'model': 'deepseek-chat',
+    'temperature': 0.7,  # 控制回答的创造性，0-1之间
+    'max_tokens': 1000   # 控制回答的最大长度
+}
+运行本项目
+python
+运行
+
+2. 添加记忆功能
+为了让对话更连贯，可以添加对话历史记录：
+
+from collections import deque
+
+# 存储对话历史
+conversation_history = deque(maxlen=10)  # 最多保存10轮对话
+
+def get_bot_response(user_message):
+    # 将历史对话添加到请求中
+    messages = list(conversation_history)
+    messages.append({'role': 'user', 'content': user_message})
+    
+    # API调用代码...
+    
+    # 保存对话历史
+    conversation_history.append({'role': 'user', 'content': user_message})
+    conversation_history.append({'role': 'assistant', 'content': bot_response})
+    
+    return bot_response
+————————————————
+版权声明：本文为CSDN博主「jobo16」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。

@@ -10,6 +10,7 @@
 #include <ctime>
 #include <random>
 #include <algorithm>
+#include <iomanip>
 
 SubmissionService::SubmissionService() {
     // 构造函数
@@ -421,14 +422,46 @@ std::vector<TestCase> SubmissionService::getQuestionTestCases(int question_id) {
     
     try {
         // 从题目文件中读取测试用例
-        // 这里需要根据实际的题目文件格式来解析
-        // 暂时返回一些示例测试用例
+        // 根据题目ID动态生成路径
+        // 题目ID 0 对应 0001, 题目ID 1 对应 0002
+        std::stringstream ss;
+        ss << std::setfill('0') << std::setw(4) << (question_id + 1);
+        std::string questionPath = "../SQL/title/" + ss.str() + "/question.json";
         
-        // 示例：A+B Problem的测试用例
-        if (question_id == 0) {
-            test_cases.push_back(TestCase("1 2", "3", "Basic addition"));
-            test_cases.push_back(TestCase("10 20", "30", "Larger numbers"));
-            test_cases.push_back(TestCase("0 0", "0", "Zero case"));
+        std::ifstream testFile(questionPath);
+        if (testFile.is_open()) {
+            Json::Value testData;
+            Json::Reader reader;
+            if (reader.parse(testFile, testData)) {
+                // 解析测试用例
+                if (testData.isMember("questions") && testData["questions"].isArray()) {
+                    for (const auto& question : testData["questions"]) {
+                        if (question.isMember("questionContent") && question.isMember("answerContent")) {
+                            std::string input = question["questionContent"].asString();
+                            std::string expected = question["answerContent"].asString();
+                            test_cases.push_back(TestCase(input, expected, "Test case"));
+                        }
+                    }
+                }
+            } else {
+                std::cerr << "Error parsing test case JSON: " << reader.getFormattedErrorMessages() << std::endl;
+            }
+            testFile.close();
+        } else {
+            std::cerr << "Cannot open test case file: " << questionPath << std::endl;
+        }
+        
+        // 如果没有找到测试用例，提供默认的测试用例
+        if (test_cases.empty()) {
+            if (question_id == 0) {
+                test_cases.push_back(TestCase("1 2", "3", "Basic addition"));
+                test_cases.push_back(TestCase("10 20", "30", "Larger numbers"));
+                test_cases.push_back(TestCase("0 0", "0", "Zero case"));
+            } else if (question_id == 1) {
+                test_cases.push_back(TestCase("10+10", "20", "Basic addition"));
+                test_cases.push_back(TestCase("20+20", "40", "Larger numbers"));
+                test_cases.push_back(TestCase("100+100", "200", "Large numbers"));
+            }
         }
         
     } catch (const std::exception& e) {

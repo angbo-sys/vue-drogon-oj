@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API调试页面</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .result { background: #f5f5f5; padding: 10px; margin: 10px 0; border-radius: 3px; }
+        button { padding: 10px 15px; margin: 5px; background: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h1>前端API调试页面</h1>
+    
+    <div class="section">
+        <h3>1. 检查Cookie状态</h3>
+        <button onclick="checkCookies()">检查Cookie</button>
+        <div id="cookieResult" class="result"></div>
+    </div>
+    
+    <div class="section">
+        <h3>2. 模拟登录</h3>
+        <button onclick="simulateLogin()">模拟登录</button>
+        <div id="loginResult" class="result"></div>
+    </div>
+    
+    <div class="section">
+        <h3>3. 测试统计API</h3>
+        <button onclick="testStatisticsAPI()">测试统计API</button>
+        <div id="statsResult" class="result"></div>
+    </div>
+    
+    <div class="section">
+        <h3>4. 测试提交历史API</h3>
+        <button onclick="testSubmissionsAPI()">测试提交历史API</button>
+        <div id="submissionsResult" class="result"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5555';
+        
+        // 检查Cookie状态
+        function checkCookies() {
+            const result = document.getElementById('cookieResult');
+            const token = getCookie('token');
+            const userId = getCookie('userId');
+            const userInfo = getCookie('userInfo');
+            
+            let html = '<h4>Cookie状态:</h4>';
+            html += `<p><strong>Token:</strong> ${token || '未设置'}</p>`;
+            html += `<p><strong>User ID:</strong> ${userId || '未设置'}</p>`;
+            html += `<p><strong>User Info:</strong> ${userInfo || '未设置'}</p>`;
+            
+            if (token && userId) {
+                html += '<p class="success">✓ 用户认证信息完整</p>';
+            } else {
+                html += '<p class="error">✗ 用户认证信息不完整</p>';
+            }
+            
+            result.innerHTML = html;
+        }
+        
+        // 模拟登录
+        async function simulateLogin() {
+            const result = document.getElementById('loginResult');
+            result.innerHTML = '正在登录...';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: 'testuser',
+                        password: '123456'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    // 设置Cookie
+                    setCookie('token', data.token, 1);
+                    setCookie('userId', data.user.id, 1);
+                    setCookie('userInfo', JSON.stringify(data.user), 1);
+                    
+                    result.innerHTML = `
+                        <h4 class="success">登录成功!</h4>
+                        <p><strong>Token:</strong> ${data.token}</p>
+                        <p><strong>User ID:</strong> ${data.user.id}</p>
+                        <p><strong>Username:</strong> ${data.user.username}</p>
+                        <p><strong>Email:</strong> ${data.user.email}</p>
+                    `;
+                } else {
+                    result.innerHTML = `<h4 class="error">登录失败: ${data.message}</h4>`;
+                }
+            } catch (error) {
+                result.innerHTML = `<h4 class="error">登录错误: ${error.message}</h4>`;
+            }
+        }
+        
+        // 测试统计API
+        async function testStatisticsAPI() {
+            const result = document.getElementById('statsResult');
+            result.innerHTML = '正在获取统计数据...';
+            
+            const token = getCookie('token');
+            const userId = getCookie('userId');
+            
+            if (!token || !userId) {
+                result.innerHTML = '<h4 class="error">请先登录</h4>';
+                return;
+            }
+            
+            try {
+                // 使用URL参数方式调用API
+                const response = await fetch(`${API_BASE}/api/submit/statistics?user_id=${userId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    result.innerHTML = `
+                        <h4 class="success">统计数据获取成功!</h4>
+                        <p><strong>API调用方式:</strong> GET /api/submit/statistics?user_id=${userId}</p>
+                        <p><strong>总提交次数:</strong> ${data.statistics.total_submissions}</p>
+                        <p><strong>通过次数:</strong> ${data.statistics.accepted_submissions}</p>
+                        <p><strong>通过率:</strong> ${Math.round(data.statistics.acceptance_rate * 100)}%</p>
+                        <p><strong>错误答案:</strong> ${data.statistics.wrong_answer}</p>
+                        <p><strong>超时次数:</strong> ${data.statistics.time_limit_exceeded}</p>
+                        <p><strong>运行时错误:</strong> ${data.statistics.runtime_error}</p>
+                        <p><strong>编译错误:</strong> ${data.statistics.compilation_error}</p>
+                    `;
+                } else {
+                    result.innerHTML = `<h4 class="error">获取统计数据失败: ${data.message}</h4>`;
+                }
+            } catch (error) {
+                result.innerHTML = `<h4 class="error">API调用错误: ${error.message}</h4>`;
+            }
+        }
+        
+        // 测试提交历史API
+        async function testSubmissionsAPI() {
+            const result = document.getElementById('submissionsResult');
+            result.innerHTML = '正在获取提交历史...';
+            
+            const token = getCookie('token');
+            const userId = getCookie('userId');
+            
+            if (!token || !userId) {
+                result.innerHTML = '<h4 class="error">请先登录</h4>';
+                return;
+            }
+            
+            try {
+                // 使用URL参数方式调用API
+                const response = await fetch(`${API_BASE}/api/submit/history?user_id=${userId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    const submissions = data.items || [];
+                    let html = `<h4 class="success">提交历史获取成功! (共${submissions.length}条记录)</h4>`;
+                    html += `<p><strong>API调用方式:</strong> GET /api/submit/history?user_id=${userId}</p>`;
+                    
+                    if (submissions.length > 0) {
+                        html += '<table border="1" style="width:100%; border-collapse: collapse;">';
+                        html += '<tr><th>提交ID</th><th>题目ID</th><th>状态</th><th>提交时间</th></tr>';
+                        
+                        submissions.slice(0, 5).forEach(sub => {
+                            html += `<tr>
+                                <td>${sub.submission_id}</td>
+                                <td>${sub.question_id}</td>
+                                <td>${sub.status}</td>
+                                <td>${new Date(parseInt(sub.submitted_at) * 1000).toLocaleString()}</td>
+                            </tr>`;
+                        });
+                        
+                        html += '</table>';
+                    } else {
+                        html += '<p>暂无提交记录</p>';
+                    }
+                    
+                    result.innerHTML = html;
+                } else {
+                    result.innerHTML = `<h4 class="error">获取提交历史失败: ${data.message}</h4>`;
+                }
+            } catch (error) {
+                result.innerHTML = `<h4 class="error">API调用错误: ${error.message}</h4>`;
+            }
+        }
+        
+        // Cookie操作函数
+        function setCookie(name, value, days) {
+            const expires = new Date();
+            expires.setDate(expires.getDate() + days);
+            document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+        }
+        
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+        
+        // 页面加载时检查Cookie状态
+        window.onload = function() {
+            checkCookies();
+        };
+    </script>
+</body>
+</html>

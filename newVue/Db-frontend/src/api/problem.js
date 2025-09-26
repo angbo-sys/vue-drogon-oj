@@ -16,8 +16,12 @@ export const submitCode = (data) => {
 }
 
 // 获取提交历史
-export const getSubmissionHistory = (params = {}) => {
-  return api.get('/api/submit/history', { params })
+export const getSubmissionHistory = (userId = null) => {
+  if (userId) {
+    return api.get(`/api/submit/history?user_id=${userId}`)
+  } else {
+    return api.get('/api/submit/history')
+  }
 }
 
 // 获取提交详情
@@ -26,6 +30,15 @@ export const getSubmissionDetail = (id) => {
 }
 
 // 获取提交统计
-export const getSubmissionStatistics = (params = {}) => {
-  return api.get('/api/submit/statistics', { params })
+export const getSubmissionStatistics = (userId = null) => {
+  if (userId) {
+    return api.get(`/api/submit/statistics?user_id=${userId}`)
+  } else {
+    return api.get('/api/submit/statistics')
+  }
+}
+
+// AI聊天接口
+export const chatWithAI = (data) => {
+  return api.post('/api/ai/chat', data)
 }

@@ -66,7 +66,7 @@
                 {{ problem.time_limit || 1000 }}ms
               </span>
               <span class="stat-item">
-                <el-icon><MemoryCard /></el-icon>
+                <el-icon><Cpu /></el-icon>
                 {{ problem.memory_limit || 256 }}MB
               </span>
             </div>
@@ -91,7 +91,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useProblemStore } from '@/stores/problem'
-import { Search, User, Clock, MemoryCard } from '@element-plus/icons-vue'
+import { Search, User, Clock, Cpu } from '@element-plus/icons-vue'
 
 export default {
   name: 'ProblemList',
@@ -190,7 +190,7 @@ export default {
       Search,
       User,
       Clock,
-      MemoryCard
+      Cpu
     }
   }
 }

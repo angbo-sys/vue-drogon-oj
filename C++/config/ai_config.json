@@ -1,0 +1,14 @@
+{
+  "deepseek": {
+    "api_url": "https://api.deepseek.com",
+    "api_key": "自行补全",
+    "model": "deepseek-chat",
+    "max_tokens": 1000,
+    "temperature": 0.7,
+    "timeout": 30
+  },
+  "fallback": {
+    "use_mock_response": true,
+    "mock_response_enabled": true
+  }
+}

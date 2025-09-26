@@ -2,6 +2,7 @@
 #include "controllers/QuestionController.h"
 #include "controllers/SubmissionController.h"
 #include "services/GetUserInfo.h"
+#include "services/AIChatService.h"
 using namespace drogon;
 
 int main() {
@@ -240,6 +241,56 @@ int main() {
     app().registerHandler("/api/submit/statistics", [](const HttpRequestPtr &req,
                                                       std::function<void (const HttpResponsePtr &)> &&callback) {
         SubmissionController::getSubmissionStatistics(req, std::move(callback));
+    });
+
+    // AI聊天接口
+    app().registerHandler("/api/ai/chat", [](const HttpRequestPtr &req,
+                                             std::function<void (const HttpResponsePtr &)> &&callback) {
+        auto resp = HttpResponse::newHttpResponse();
+        resp->setStatusCode(k200OK);
+        resp->setContentTypeCode(CT_APPLICATION_JSON);
+        
+        // 解析请求体
+        std::string body = std::string(req->getBody());
+        Json::Value requestJson;
+        Json::CharReaderBuilder builder;
+        std::unique_ptr<Json::CharReader> reader(builder.newCharReader());
+        std::string errors;
+        
+        bool parsingSuccessful = reader->parse(
+            body.c_str(),
+            body.c_str() + body.size(),
+            &requestJson,
+            &errors
+        );
+        
+        Json::Value response;
+        
+        if (!parsingSuccessful) {
+            response["status"] = "error";
+            response["message"] = "请求格式错误: " + errors;
+            resp->setStatusCode(k400BadRequest);
+        } else {
+            // 获取请求参数
+            std::string userId = requestJson.get("user_id", "").asString();
+            std::string questionId = requestJson.get("question_id", "").asString();
+            std::string message = requestJson.get("message", "").asString();
+            Json::Value problemInfo = requestJson.get("problem_info", Json::Value());
+            
+            // 使用AI聊天服务处理请求
+            AIChatService aiService;
+            Json::Value aiResponse = aiService.processChatRequest(userId, questionId, message, problemInfo);
+            
+            if (aiResponse["status"].asString() == "success") {
+                response = aiResponse;
+            } else {
+                response["status"] = "error";
+                response["message"] = aiResponse["message"];
+            }
+        }
+        
+        resp->setBody(response.toStyledString());
+        callback(resp);
     });
 
     // Add CORS headers for all responses

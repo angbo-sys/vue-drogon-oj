@@ -1,0 +1,60 @@
+{
+    "submissionNumber" : 2,
+    "submissions" : 
+    [
+        {
+            "code" : "\n#include <iostream>\nusing namespace std;\nint main() {\n    int a, b;\n    cin >> a >> b;\n    cout << a + b << endl;\n    return 0;\n}\n",
+            "error" : "",
+            "execution_time" : 0.35871441599999998,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "All test cases passed",
+            "output" : "",
+            "question_id" : 0,
+            "status" : "AC",
+            "submission_id" : "1758849970_670555",
+            "submitted_at" : "1758849972",
+            "test_case_results" : 
+            [
+                "Test case 1: AC",
+                "Test case 2: AC",
+                "Test case 3: AC",
+                "Test case 4: AC",
+                "Test case 5: AC",
+                "Test case 6: AC",
+                "Test case 7: AC",
+                "Test case 8: AC",
+                "Test case 9: AC",
+                "Test case 10: AC"
+            ],
+            "user_id" : "test_user"
+        },
+        {
+            "code" : "\n#include <iostream>\nusing namespace std;\nint main() {\n    string expr;\n    cin >> expr;\n    // Simple evaluation for expressions like \"10+10\"\n    size_t pos = expr.find('+');\n    if (pos != string::npos) {\n        int a = stoi(expr.substr(0, pos));\n        int b = stoi(expr.substr(pos + 1));\n        cout << a + b << endl;\n    }\n    return 0;\n}\n",
+            "error" : "",
+            "execution_time" : 0.36435352399999998,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "All test cases passed",
+            "output" : "",
+            "question_id" : 1,
+            "status" : "AC",
+            "submission_id" : "1758849972_446627",
+            "submitted_at" : "1758849973",
+            "test_case_results" : 
+            [
+                "Test case 1: AC",
+                "Test case 2: AC",
+                "Test case 3: AC",
+                "Test case 4: AC",
+                "Test case 5: AC",
+                "Test case 6: AC",
+                "Test case 7: AC",
+                "Test case 8: AC",
+                "Test case 9: AC",
+                "Test case 10: AC"
+            ],
+            "user_id" : "test_user"
+        }
+    ]
+}

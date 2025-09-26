@@ -5,7 +5,8 @@ import {
   getProblemDetail, 
   submitCode, 
   getSubmissionHistory, 
-  getSubmissionStatistics 
+  getSubmissionStatistics,
+  chatWithAI as chatWithAIApi
 } from '@/api/problem'
 
 export const useProblemStore = defineStore('problem', () => {
@@ -78,9 +79,9 @@ export const useProblemStore = defineStore('problem', () => {
   }
 
   // 获取提交历史
-  const fetchSubmissions = async (params = {}) => {
+  const fetchSubmissions = async (userId = null) => {
     try {
-      const response = await getSubmissionHistory(params)
+      const response = await getSubmissionHistory(userId)
       
       if (response.data.status === 'success') {
         submissions.value = response.data.items || []
@@ -95,9 +96,9 @@ export const useProblemStore = defineStore('problem', () => {
   }
 
   // 获取提交统计
-  const fetchStatistics = async (params = {}) => {
+  const fetchStatistics = async (userId = null) => {
     try {
-      const response = await getSubmissionStatistics(params)
+      const response = await getSubmissionStatistics(userId)
       
       if (response.data.status === 'success') {
         statistics.value = response.data.statistics || {}
@@ -108,6 +109,22 @@ export const useProblemStore = defineStore('problem', () => {
     } catch (error) {
       console.error('Fetch statistics error:', error)
       return { success: false, message: error.response?.data?.message || '获取统计信息失败' }
+    }
+  }
+
+  // AI聊天
+  const chatWithAI = async (data) => {
+    try {
+      const response = await chatWithAIApi(data)
+      
+      if (response.data.status === 'success') {
+        return { success: true, data: response.data.data }
+      } else {
+        return { success: false, message: response.data.message }
+      }
+    } catch (error) {
+      console.error('AI chat error:', error)
+      return { success: false, message: error.response?.data?.message || 'AI聊天失败' }
     }
   }
 
@@ -123,6 +140,7 @@ export const useProblemStore = defineStore('problem', () => {
     fetchProblemDetail,
     submitCodeToJudge,
     fetchSubmissions,
-    fetchStatistics
+    fetchStatistics,
+    chatWithAI
   }
 })
