@@ -1,0 +1,46 @@
+{
+    "questionContent": "[语言月赛202210] 图书新编",
+    "questionsNumber": 10,
+    "testCases": [
+        {
+            "questionContent": "3 2\n123\n456\n789\n2 23\n2 89",
+            "answerContent": "0\n1"
+        },
+        {
+            "questionContent": "5 3\n1111\n2222\n3333\n4444\n5555\n1 1\n1 2\n1 5",
+            "answerContent": "1\n1\n1"
+        },
+        {
+            "questionContent": "2 1\n10\n20\n1 0",
+            "answerContent": "2"
+        },
+        {
+            "questionContent": "4 2\n1234\n5678\n9101\n2345\n2 34\n3 101",
+            "answerContent": "1\n1"
+        },
+        {
+            "questionContent": "1 1\n999\n1 9",
+            "answerContent": "1"
+        },
+        {
+            "questionContent": "6 3\n1001\n1002\n1003\n1004\n1005\n1006\n2 01\n2 03\n2 06",
+            "answerContent": "2\n1\n1"
+        },
+        {
+            "questionContent": "8 4\n12345678\n23456789\n34567890\n45678901\n56789012\n67890123\n78901234\n89012345\n3 789\n3 012\n3 901\n3 456",
+            "answerContent": "1\n1\n1\n1"
+        },
+        {
+            "questionContent": "3 3\n11\n22\n33\n1 1\n1 2\n1 3",
+            "answerContent": "1\n1\n1"
+        },
+        {
+            "questionContent": "7 2\n10001\n10002\n10003\n10004\n10005\n10006\n10007\n2 01\n2 07",
+            "answerContent": "1\n1"
+        },
+        {
+            "questionContent": "10 5\n1234567890\n2345678901\n3456789012\n4567890123\n5678901234\n6789012345\n7890123456\n8901234567\n9012345678\n0123456789\n2 89\n2 12\n3 901\n3 456\n3 789",
+            "answerContent": "1\n1\n1\n1\n1"
+        }
+    ]
+}

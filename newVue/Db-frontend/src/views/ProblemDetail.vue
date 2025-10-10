@@ -28,53 +28,189 @@
               </div>
             </template>
             
-            <!-- 加载状态 -->
-            <div v-if="problemStore.loading" class="loading-container">
-              <el-skeleton :rows="15" animated />
-            </div>
-            
-            <!-- 题目内容 -->
-            <div v-else-if="problem" class="problem-content">
-              <!-- 题目统计信息 -->
-              <div class="problem-stats">
-                <div class="stat-item">
-                  <span class="stat-label">通过率:</span>
-                  <span class="stat-value">{{ problem.acceptance_rate || '--' }}%</span>
+            <!-- 标签页切换 -->
+            <el-tabs v-model="activeTab" class="problem-tabs">
+              <!-- 题目描述标签页 -->
+              <el-tab-pane label="题目描述" name="description">
+                <!-- 加载状态 -->
+                <div v-if="problemStore.loading" class="loading-container">
+                  <el-skeleton :rows="15" animated />
                 </div>
-                <div class="stat-item">
-                  <span class="stat-label">提交次数:</span>
-                  <span class="stat-value">{{ problem.submit_count || 0 }}</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-label">通过次数:</span>
-                  <span class="stat-value">{{ problem.accept_count || 0 }}</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-label">时间限制:</span>
-                  <span class="stat-value">{{ problem.time_limit || 1000 }}ms</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-label">内存限制:</span>
-                  <span class="stat-value">{{ problem.memory_limit || 256 }}MB</span>
-                </div>
-              </div>
+                
+                <!-- 题目内容 -->
+                <div v-else-if="problem" class="problem-content">
+                  <!-- 题目统计信息 -->
+                  <div class="problem-stats">
+                    <div class="stat-item">
+                      <span class="stat-label">通过率:</span>
+                      <span class="stat-value">{{ problem.acceptance_rate || '--' }}%</span>
+                    </div>
+                    <div class="stat-item">
+                      <span class="stat-label">提交次数:</span>
+                      <span class="stat-value">{{ problem.submit_count || 0 }}</span>
+                    </div>
+                    <div class="stat-item">
+                      <span class="stat-label">通过次数:</span>
+                      <span class="stat-value">{{ problem.accept_count || 0 }}</span>
+                    </div>
+                    <div class="stat-item">
+                      <span class="stat-label">时间限制:</span>
+                      <span class="stat-value">{{ problem.time_limit || 1000 }}ms</span>
+                    </div>
+                    <div class="stat-item">
+                      <span class="stat-label">内存限制:</span>
+                      <span class="stat-value">{{ problem.memory_limit || 256 }}MB</span>
+                    </div>
+                  </div>
 
-              <!-- 题目描述 -->
-              <div class="problem-description" v-html="formattedDescription"></div>
-              
-              <!-- 题目标签 -->
-              <div class="problem-tags" v-if="problem.tags && problem.tags.length">
-                <el-tag 
-                  v-for="tag in problem.tags" 
-                  :key="tag" 
-                  type="info" 
-                  effect="plain"
-                  class="tag-item"
-                >
-                  {{ tag }}
-                </el-tag>
-              </div>
-            </div>
+                  <!-- 题目描述 -->
+                  <div class="problem-description" v-html="formattedDescription"></div>
+                  
+                  <!-- 题目标签 -->
+                  <div class="problem-tags" v-if="problem.tags && problem.tags.length">
+                    <el-tag 
+                      v-for="tag in problem.tags" 
+                      :key="tag" 
+                      type="info" 
+                      effect="plain"
+                      class="tag-item"
+                    >
+                      {{ tag }}
+                    </el-tag>
+                  </div>
+                </div>
+              </el-tab-pane>
+
+              <!-- 评论区标签页 -->
+              <el-tab-pane label="评论区" name="comments">
+                <div class="comments-section">
+                  <!-- 评论统计 -->
+                  <div class="comments-header">
+                    <h3>评论区</h3>
+                    <div class="comments-stats">
+                      <span class="comment-count">共 {{ commentCount }} 条评论</span>
+                    </div>
+                  </div>
+
+                  <!-- 发表评论 -->
+                  <div class="comment-form">
+                    <el-input
+                      v-model="newComment"
+                      type="textarea"
+                      :rows="3"
+                      placeholder="写下你的评论..."
+                      maxlength="500"
+                      show-word-limit
+                    />
+                    <div class="comment-actions">
+                      <el-button 
+                        type="primary" 
+                        @click="submitComment"
+                        :loading="submittingComment"
+                        :disabled="!newComment.trim()"
+                      >
+                        发表评论
+                      </el-button>
+                    </div>
+                  </div>
+
+                  <!-- 评论列表 -->
+                  <div class="comments-list">
+                    <div v-if="commentsLoading" class="loading-comments">
+                      <el-skeleton :rows="3" animated />
+                    </div>
+                    <div v-else-if="comments.length === 0" class="no-comments">
+                      <el-empty description="暂无评论，快来抢沙发吧！" />
+                    </div>
+                    <div v-else>
+                      <div 
+                        v-for="comment in comments" 
+                        :key="comment.id"
+                        class="comment-item"
+                      >
+                        <div class="comment-header">
+                          <div class="comment-user">
+                            <el-avatar :size="32" :src="comment.avatar">
+                              {{ comment.username?.charAt(0) }}
+                            </el-avatar>
+                            <div class="user-info">
+                              <span class="username">{{ comment.username }}</span>
+                              <span class="comment-time">{{ formatCommentTime(comment.created_at) }}</span>
+                            </div>
+                          </div>
+                          <div class="comment-actions" v-if="comment.user_id === userStore.userId">
+                            <el-button 
+                              size="small" 
+                              type="danger" 
+                              text
+                              @click="deleteComment(comment.id)"
+                            >
+                              删除
+                            </el-button>
+                          </div>
+                        </div>
+                        <div class="comment-content">
+                          {{ comment.content }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </el-tab-pane>
+
+              <!-- 题解标签页 -->
+              <el-tab-pane label="题解" name="solutions">
+                <div class="solutions-section">
+                  <!-- 题解统计 -->
+                  <div class="solutions-header">
+                    <h3>题解</h3>
+                    <el-button type="primary" @click="showSubmitSolution = true">
+                      提交题解
+                    </el-button>
+                  </div>
+
+                  <!-- 题解列表 -->
+                  <div class="solutions-list">
+                    <div v-if="solutionsLoading" class="loading-solutions">
+                      <el-skeleton :rows="3" animated />
+                    </div>
+                    <div v-else-if="solutions.length === 0" class="no-solutions">
+                      <el-empty description="暂无题解，快来分享你的解题思路吧！" />
+                    </div>
+                    <div v-else>
+                      <div 
+                        v-for="solution in solutions" 
+                        :key="solution.analysis_id"
+                        class="solution-item"
+                      >
+                        <div class="solution-header">
+                          <div class="solution-user">
+                            <el-avatar :size="32" :src="solution.avatar">
+                              {{ solution.username?.charAt(0) }}
+                            </el-avatar>
+                            <div class="user-info">
+                              <span class="username">{{ solution.username }}</span>
+                              <span class="solution-time">{{ formatCommentTime(solution.created_at) }}</span>
+                            </div>
+                          </div>
+                          <div class="solution-stats">
+                            <button 
+                              :class="solution.isLiked ? 'like-button liked' : 'like-button'"
+                              @click="toggleLikeSolution(solution.analysis_id)"
+                            >
+                              <HeartSolidIconFilled v-if="solution.isLiked" class="heart-icon" />
+                              <HeartIcon v-else class="heart-icon" />
+                              {{ solution.like_count || 0 }}
+                            </button>
+                          </div>
+                        </div>
+                        <div class="solution-content" v-html="renderMarkdown(solution.analysis_content)"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </el-tab-pane>
+            </el-tabs>
           </el-card>
         </el-col>
         
@@ -232,17 +368,55 @@
         </div>
       </div>
     </div>
+
+    <!-- 题解提交对话框 -->
+    <el-dialog
+      v-model="showSubmitSolution"
+      title="提交题解"
+      width="600px"
+      :before-close="handleCloseSolutionDialog"
+    >
+      <el-form :model="solutionForm" label-width="80px">
+        <el-form-item label="题解内容">
+          <el-input
+            v-model="solutionForm.content"
+            type="textarea"
+            :rows="8"
+            placeholder="请详细描述你的解题思路、算法分析、代码实现等..."
+            maxlength="2000"
+            show-word-limit
+          />
+        </el-form-item>
+      </el-form>
+      
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="showSubmitSolution = false">取消</el-button>
+          <el-button 
+            type="primary" 
+            @click="submitSolution"
+            :loading="submittingSolution"
+            :disabled="!solutionForm.content.trim()"
+          >
+            提交题解
+          </el-button>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { ref, onMounted, computed, nextTick } from 'vue'
+import { ref, onMounted, computed, nextTick, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useProblemStore } from '@/stores/problem'
 import { useUserStore } from '@/stores/user'
 import { ElMessage } from 'element-plus'
 import MarkdownIt from 'markdown-it'
-import { ChatDotRound, Close, User, Robot, Loading } from '@element-plus/icons-vue'
+import { ChatDotRound, Close, User, Robot, Loading, Star } from '@element-plus/icons-vue'
+import { HeartIcon, HeartSolidIcon } from '@heroicons/vue/24/outline'
+import { HeartIcon as HeartSolidIconFilled } from '@heroicons/vue/24/solid'
+import { commentAPI, analysisAPI } from '@/api/comments'
 
 export default {
   name: 'ProblemDetail',
@@ -251,7 +425,11 @@ export default {
     Close,
     User,
     Robot,
-    Loading
+    Loading,
+    Star,
+    HeartIcon,
+    HeartSolidIcon,
+    HeartSolidIconFilled
   },
   setup() {
     const route = useRoute()
@@ -264,12 +442,31 @@ export default {
     const submissionResult = ref(null)
     const isFavorited = ref(false)
     
+    // 标签页状态
+    const activeTab = ref('description')
+    
     // AI聊天相关状态
     const showAIChat = ref(false)
     const chatMessages = ref([])
     const chatInput = ref('')
     const aiLoading = ref(false)
     const chatMessagesRef = ref(null)
+    
+    // 评论相关状态
+    const comments = ref([])
+    const commentCount = ref(0)
+    const commentsLoading = ref(false)
+    const submittingComment = ref(false)
+    const newComment = ref('')
+    
+    // 题解相关状态
+    const solutions = ref([])
+    const solutionsLoading = ref(false)
+    const submittingSolution = ref(false)
+    const showSubmitSolution = ref(false)
+    const solutionForm = ref({
+      content: ''
+    })
     
     // 初始化markdown渲染器
     const md = new MarkdownIt({
@@ -548,6 +745,212 @@ rl.on('line', (line) => {
       }
     }
     
+    // 评论相关方法
+    const loadComments = async () => {
+      if (!problem.value?.id) return
+      
+      commentsLoading.value = true
+      try {
+        const response = await commentAPI.getProblemComments(problem.value.id, {
+          page: 1,
+          page_size: 20
+        })
+        
+        if (response.data.status === 'success') {
+          comments.value = response.data.comments || []
+          commentCount.value = response.data.total || 0
+        }
+      } catch (error) {
+        console.error('Load comments error:', error)
+        ElMessage.error('加载评论失败')
+      } finally {
+        commentsLoading.value = false
+      }
+    }
+    
+    const submitComment = async () => {
+      if (!newComment.value.trim()) {
+        ElMessage.warning('请输入评论内容')
+        return
+      }
+      
+      if (!userStore.userId) {
+        ElMessage.warning('请先登录')
+        return
+      }
+      
+      submittingComment.value = true
+      try {
+        const response = await commentAPI.createComment({
+          problem_id: problem.value.id,
+          user_id: userStore.userId,
+          username: userStore.userInfo?.username || '匿名用户',
+          content: newComment.value.trim()
+        })
+        
+        if (response.data.status === 'success') {
+          ElMessage.success('评论发表成功')
+          newComment.value = ''
+          await loadComments()
+        } else {
+          ElMessage.error(response.data.message || '发表评论失败')
+        }
+      } catch (error) {
+        console.error('Submit comment error:', error)
+        ElMessage.error('发表评论失败')
+      } finally {
+        submittingComment.value = false
+      }
+    }
+    
+    const deleteComment = async (commentId) => {
+      try {
+        const response = await commentAPI.deleteComment({
+          comment_id: commentId,
+          user_id: userStore.userId
+        })
+        
+        if (response.data.status === 'success') {
+          ElMessage.success('评论删除成功')
+          await loadComments()
+        } else {
+          ElMessage.error(response.data.message || '删除评论失败')
+        }
+      } catch (error) {
+        console.error('Delete comment error:', error)
+        ElMessage.error('删除评论失败')
+      }
+    }
+    
+    const formatCommentTime = (timestamp) => {
+      if (!timestamp) return ''
+      
+      // 处理Unix时间戳（秒）
+      let date
+      if (typeof timestamp === 'number') {
+        // 如果是10位数字，说明是秒级时间戳
+        if (timestamp.toString().length === 10) {
+          date = new Date(timestamp * 1000)
+        } else {
+          date = new Date(timestamp)
+        }
+      } else {
+        date = new Date(timestamp)
+      }
+      
+      const now = new Date()
+      const diff = now - date
+      
+      if (diff < 60000) return '刚刚'
+      if (diff < 3600000) return `${Math.floor(diff / 60000)}分钟前`
+      if (diff < 86400000) return `${Math.floor(diff / 3600000)}小时前`
+      if (diff < 604800000) return `${Math.floor(diff / 86400000)}天前`
+      
+      return date.toLocaleDateString('zh-CN')
+    }
+    
+    // 题解相关方法
+    const loadSolutions = async () => {
+      if (!problem.value?.id) return
+      
+      solutionsLoading.value = true
+      try {
+        const response = await analysisAPI.getQuestionAnalysis(problem.value.id)
+        
+        if (response.data.status === 'success') {
+          solutions.value = response.data.analyses || []
+          // 为每个题解添加用户名和头像信息
+          solutions.value.forEach(solution => {
+            solution.username = solution.username || '匿名用户'
+            solution.avatar = solution.avatar || ''
+            solution.isLiked = false // 默认未点赞
+          })
+        }
+      } catch (error) {
+        console.error('Load solutions error:', error)
+        ElMessage.error('加载题解失败')
+      } finally {
+        solutionsLoading.value = false
+      }
+    }
+    
+    const submitSolution = async () => {
+      if (!solutionForm.value.content.trim()) {
+        ElMessage.warning('请输入题解内容')
+        return
+      }
+      
+      if (!userStore.userId) {
+        ElMessage.warning('请先登录')
+        return
+      }
+      
+      submittingSolution.value = true
+      try {
+        const response = await analysisAPI.submitUserAnalysis({
+          question_id: problem.value.id,
+          user_id: userStore.userId,
+          analysis_content: solutionForm.value.content.trim()
+        })
+        
+        if (response.data.status === 'success') {
+          ElMessage.success('题解提交成功')
+          showSubmitSolution.value = false
+          solutionForm.value.content = ''
+          await loadSolutions()
+        } else {
+          ElMessage.error(response.data.message || '提交题解失败')
+        }
+      } catch (error) {
+        console.error('Submit solution error:', error)
+        ElMessage.error('提交题解失败')
+      } finally {
+        submittingSolution.value = false
+      }
+    }
+    
+    const toggleLikeSolution = async (solutionId) => {
+      if (!userStore.userId) {
+        ElMessage.warning('请先登录')
+        return
+      }
+      
+      try {
+        const response = await analysisAPI.likeAnalysis({
+          analysis_id: solutionId,
+          user_id: userStore.userId
+        })
+        
+        if (response.data.status === 'success') {
+          // 更新本地状态
+          const solution = solutions.value.find(s => s.analysis_id === solutionId)
+          if (solution) {
+            solution.isLiked = !solution.isLiked
+            solution.like_count = (solution.like_count || 0) + (solution.isLiked ? 1 : -1)
+          }
+        } else {
+          ElMessage.error(response.data.message || '操作失败')
+        }
+      } catch (error) {
+        console.error('Toggle like error:', error)
+        ElMessage.error('操作失败')
+      }
+    }
+    
+    const handleCloseSolutionDialog = () => {
+      showSubmitSolution.value = false
+      solutionForm.value.content = ''
+    }
+    
+    // 监听标签页切换
+    watch(activeTab, (newTab) => {
+      if (newTab === 'comments' && comments.value.length === 0) {
+        loadComments()
+      } else if (newTab === 'solutions' && solutions.value.length === 0) {
+        loadSolutions()
+      }
+    })
+    
     
     onMounted(async () => {
       console.log('ProblemDetail mounted, route params:', route.params)
@@ -557,6 +960,7 @@ rl.on('line', (line) => {
     
     return {
       problemStore,
+      userStore,
       submitting,
       problem,
       selectedLanguage,
@@ -574,6 +978,8 @@ rl.on('line', (line) => {
       clearResult,
       changeLanguage,
       onCodeChange,
+      // 标签页相关
+      activeTab,
       // AI聊天相关
       showAIChat,
       chatMessages,
@@ -584,7 +990,27 @@ rl.on('line', (line) => {
       closeAIChat,
       sendMessage,
       formatTime,
-      renderMarkdown
+      renderMarkdown,
+      // 评论相关
+      comments,
+      commentCount,
+      commentsLoading,
+      submittingComment,
+      newComment,
+      loadComments,
+      submitComment,
+      deleteComment,
+      formatCommentTime,
+      // 题解相关
+      solutions,
+      solutionsLoading,
+      submittingSolution,
+      showSubmitSolution,
+      solutionForm,
+      loadSolutions,
+      submitSolution,
+      toggleLikeSolution,
+      handleCloseSolutionDialog
     }
   }
 }
@@ -1233,6 +1659,337 @@ rl.on('line', (line) => {
   
   .message-content {
     max-width: 85%;
+  }
+}
+
+/* 标签页样式 */
+.problem-tabs {
+  margin-top: 20px;
+}
+
+.problem-tabs :deep(.el-tabs__header) {
+  margin-bottom: 20px;
+}
+
+.problem-tabs :deep(.el-tabs__nav-wrap) {
+  padding: 0 20px;
+}
+
+/* 评论区样式 */
+.comments-section {
+  padding: 20px;
+}
+
+.comments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.comments-header h3 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.2rem;
+}
+
+.comment-count {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.comment-form {
+  margin-bottom: 30px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.comment-actions {
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.comment-item {
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.comment-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.username {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.95rem;
+}
+
+.comment-time {
+  color: #6c757d;
+  font-size: 0.8rem;
+}
+
+.comment-content {
+  color: #2c3e50;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.loading-comments {
+  padding: 20px;
+}
+
+.no-comments {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+/* 题解区样式 */
+.solutions-section {
+  padding: 20px;
+}
+
+.solutions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.solutions-header h3 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.2rem;
+}
+
+.solutions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.solution-item {
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.solution-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.solution-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.solution-stats {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  min-width: 60px !important;
+  justify-content: flex-end !important;
+}
+
+/* 爱心点赞按钮样式 */
+.solution-item .like-button {
+  border: 1px solid #dcdfe6 !important;
+  background: #ffffff !important;
+  color: #606266 !important;
+  border-radius: 20px !important;
+  padding: 6px 12px !important;
+  font-size: 12px !important;
+  transition: all 0.3s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  min-width: auto !important;
+  height: auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 1 !important;
+  cursor: pointer !important;
+  outline: none !important;
+  font-family: inherit !important;
+}
+
+.solution-item .like-button:hover {
+  border-color: #f56c6c !important;
+  color: #f56c6c !important;
+  background: #fef0f0 !important;
+}
+
+.solution-item .like-button.liked {
+  border-color: #f56c6c !important;
+  background: #f56c6c !important;
+  color: #ffffff !important;
+}
+
+.solution-item .like-button.liked:hover {
+  background: #f78989 !important;
+  border-color: #f78989 !important;
+}
+
+.solution-item .like-button .heart-icon {
+  width: 16px !important;
+  height: 16px !important;
+  transition: transform 0.2s ease !important;
+}
+
+.solution-item .like-button:hover .heart-icon {
+  transform: scale(1.1) !important;
+}
+
+.solution-item .like-button.liked .heart-icon {
+  animation: heartbeat 0.6s ease-in-out !important;
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.2); }
+  50% { transform: scale(1); }
+  75% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.solution-content {
+  color: #2c3e50;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.solution-content :deep(h1),
+.solution-content :deep(h2),
+.solution-content :deep(h3),
+.solution-content :deep(h4) {
+  color: #2c3e50;
+  margin: 15px 0 10px 0;
+}
+
+.solution-content :deep(h1) { font-size: 1.3rem; }
+.solution-content :deep(h2) { font-size: 1.2rem; }
+.solution-content :deep(h3) { font-size: 1.1rem; }
+.solution-content :deep(h4) { font-size: 1rem; }
+
+.solution-content :deep(p) {
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+.solution-content :deep(pre) {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  margin: 15px 0;
+  overflow-x: auto;
+}
+
+.solution-content :deep(code) {
+  background: #f1f3f4;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.9rem;
+}
+
+.solution-content :deep(ul),
+.solution-content :deep(ol) {
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+.solution-content :deep(li) {
+  margin: 5px 0;
+}
+
+.loading-solutions {
+  padding: 20px;
+}
+
+.no-solutions {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+/* 对话框样式 */
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .comments-header,
+  .solutions-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+  
+  .comment-header,
+  .solution-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  
+  .comment-user,
+  .solution-user {
+    justify-content: center;
+  }
+  
+  .solution-stats {
+    justify-content: center;
+  }
+  
+  .comment-form {
+    padding: 15px;
+  }
+  
+  .comment-item,
+  .solution-item {
+    padding: 15px;
   }
 }
 </style>

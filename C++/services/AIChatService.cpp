@@ -7,7 +7,7 @@
 AIChatService::AIChatService() {
     // 初始化默认配置
     deepseekApiUrl = "https://api.deepseek.com";
-    deepseekApiKey = "自行补全";
+    deepseekApiKey = "自动补全";
     deepseekModel = "deepseek-chat";
     maxTokens = 1000;
     temperature = 0.7;

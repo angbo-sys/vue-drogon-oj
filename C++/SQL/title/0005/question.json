@@ -1,0 +1,16 @@
+{
+      "questionContent": "奇数求和",
+      "questionsNumber":10,
+      "testCases": [
+        { "questionContent": "7 15", "answerContent": "55" },
+        { "questionContent": "2 5", "answerContent": "8" },
+        { "questionContent": "3 12" , "answerContent": "35" },
+        { "questionContent": "0 0", "answerContent": "0" },
+        { "questionContent": "1 300", "answerContent": "22500" },
+        { "questionContent": "2 299", "answerContent": "22350" },
+        { "questionContent": "100 200", "answerContent": "7500" },
+        { "questionContent": "250 300", "answerContent": "3775" },
+        { "questionContent": "5 5", "answerContent": "5" },
+        { "questionContent": "2 2", "answerContent": "0" }
+      ]
+    }

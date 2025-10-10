@@ -1,0 +1,46 @@
+{
+    "questionContent": "[语言月赛202302] 大碗宽面",
+    "questionsNumber": 10,
+    "testCases": [
+        {
+            "questionContent": "4 2 2\n1 2\n2 3\n1 4\n1 3",
+            "answerContent": "3"
+        },
+        {
+            "questionContent": "3 1 0\n1 2",
+            "answerContent": "2"
+        },
+        {
+            "questionContent": "5 3 1\n1 2\n2 3\n3 4\n1 5",
+            "answerContent": "6"
+        },
+        {
+            "questionContent": "6 2 2\n1 2\n3 4\n1 3\n2 4",
+            "answerContent": "9"
+        },
+        {
+            "questionContent": "4 0 2\n1 2\n3 4",
+            "answerContent": "2"
+        },
+        {
+            "questionContent": "7 4 1\n1 2\n2 3\n3 4\n4 5\n1 6",
+            "answerContent": "15"
+        },
+        {
+            "questionContent": "8 3 3\n1 2\n3 4\n5 6\n1 3\n2 4\n5 7",
+            "answerContent": "18"
+        },
+        {
+            "questionContent": "5 2 0\n1 2\n2 3",
+            "answerContent": "6"
+        },
+        {
+            "questionContent": "6 0 3\n1 2\n3 4\n5 6",
+            "answerContent": "9"
+        },
+        {
+            "questionContent": "10 5 2\n1 2\n2 3\n3 4\n4 5\n5 6\n1 7\n2 8",
+            "answerContent": "36"
+        }
+    ]
+}

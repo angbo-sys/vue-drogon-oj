@@ -1,6 +1,8 @@
 #include <drogon/drogon.h>
 #include "controllers/QuestionController.h"
 #include "controllers/SubmissionController.h"
+#include "controllers/CommentController.h"
+#include "controllers/QuestionAnalysisController.h"
 #include "services/GetUserInfo.h"
 #include "services/AIChatService.h"
 using namespace drogon;
@@ -291,6 +293,58 @@ int main() {
         
         resp->setBody(response.toStyledString());
         callback(resp);
+    });
+
+    // 评论相关接口
+    app().registerHandler("/api/comments/{problem_id}", [](const HttpRequestPtr &req,
+                                                           std::function<void (const HttpResponsePtr &)> &&callback) {
+        CommentController::getProblemComments(req, std::move(callback));
+    });
+    
+    app().registerHandler("/api/comments/create", [](const HttpRequestPtr &req,
+                                                     std::function<void (const HttpResponsePtr &)> &&callback) {
+        CommentController::createComment(req, std::move(callback));
+    });
+    
+    app().registerHandler("/api/comments/delete", [](const HttpRequestPtr &req,
+                                                     std::function<void (const HttpResponsePtr &)> &&callback) {
+        CommentController::deleteComment(req, std::move(callback));
+    });
+    
+    app().registerHandler("/api/comments/count/{problem_id}", [](const HttpRequestPtr &req,
+                                                                 std::function<void (const HttpResponsePtr &)> &&callback) {
+        CommentController::getCommentCount(req, std::move(callback));
+    });
+    
+    app().registerHandler("/api/comments/detail", [](const HttpRequestPtr &req,
+                                                     std::function<void (const HttpResponsePtr &)> &&callback) {
+        CommentController::getCommentById(req, std::move(callback));
+    });
+
+    // 题解分析相关接口
+    app().registerHandler("/api/analysis/{problem_id}", [](const HttpRequestPtr &req,
+                                                           std::function<void (const HttpResponsePtr &)> &&callback) {
+        QuestionAnalysisController::getQuestionAnalysis(req, std::move(callback));
+    });
+    
+    app().registerHandler("/api/analysis/submit", [](const HttpRequestPtr &req,
+                                                     std::function<void (const HttpResponsePtr &)> &&callback) {
+        QuestionAnalysisController::submitUserAnalysis(req, std::move(callback));
+    });
+    
+    app().registerHandler("/api/analysis/likes/{analysis_id}", [](const HttpRequestPtr &req,
+                                                                  std::function<void (const HttpResponsePtr &)> &&callback) {
+        QuestionAnalysisController::getAnalysisLikes(req, std::move(callback));
+    });
+    
+    app().registerHandler("/api/analysis/like", [](const HttpRequestPtr &req,
+                                                   std::function<void (const HttpResponsePtr &)> &&callback) {
+        QuestionAnalysisController::likeAnalysis(req, std::move(callback));
+    });
+    
+    app().registerHandler("/api/analysis/popular", [](const HttpRequestPtr &req,
+                                                      std::function<void (const HttpResponsePtr &)> &&callback) {
+        QuestionAnalysisController::getPopularAnalyses(req, std::move(callback));
     });
 
     // Add CORS headers for all responses

@@ -124,7 +124,7 @@ int QuestionService::generateTypeId() {
 bool QuestionService::questionExists(int t_question_id) {
     Json::Value data = loadQuestionData();
     for (const auto& question : data["subjects"]) {
-        if (question["question_id"].asInt() == t_question_id) {
+        if (question["id"].asInt() == t_question_id) {
             return true;
         }
     }
@@ -383,7 +383,7 @@ Json::Value QuestionService::getAllQuestions() {
                 Json::Value fullQuestion = question;
                 
                 // 确保ID字段正确
-                fullQuestion["id"] = question["question_id"];
+                fullQuestion["id"] = question["id"];
                 
                 // 添加时间限制和内存限制
                 fullQuestion["time_limit"] = 1000;  // 默认1秒
@@ -392,10 +392,13 @@ Json::Value QuestionService::getAllQuestions() {
                 // 添加简化的描述（只取前200个字符）
                 std::string questionPath = question["path"].asString();
                 if (questionPath.empty()) {
-                    questionPath = "./" + std::to_string(question["question_id"].asInt()) + "/";
+                    questionPath = "./" + std::to_string(question["id"].asInt()) + "/";
                 }
                 
-                std::string descriptionPath = "../SQL/title/" + questionPath + "text.md";
+                // 构建正确的文件名，使用题目ID对应的md文件
+                std::stringstream ss;
+                ss << std::setfill('0') << std::setw(4) << question["id"].asInt();
+                std::string descriptionPath = "../SQL/title/" + questionPath + ss.str() + ".md";
                 std::ifstream descFile(descriptionPath);
                 if (descFile.is_open()) {
                     std::stringstream descBuffer;
@@ -439,26 +442,26 @@ Json::Value QuestionService::getQuestionById(int t_question_id) {
         
         if (data.isMember("subjects")) {
             for (const auto& question : data["subjects"]) {
-                if (question["question_id"].asInt() == t_question_id) {
+                if (question["id"].asInt() == t_question_id) {
                     result["status"] = "success";
                     
                     // 创建完整的题目信息
                     Json::Value fullQuestion = question;
                     
                     // 确保ID字段正确
-                    fullQuestion["id"] = question["question_id"];
+                    fullQuestion["id"] = question["id"];
                     
                     // 读取题目详细内容
                     std::string questionPath = question["path"].asString();
+                    std::stringstream ss;
+                    ss << std::setfill('0') << std::setw(4) << t_question_id;
                     if (questionPath.empty()) {
                         // 根据题目ID生成路径，确保格式为0001
-                        std::stringstream ss;
-                        ss << std::setfill('0') << std::setw(4) << t_question_id;
                         questionPath = "./" + ss.str() + "/";
                     }
                     
-                    // 读取题目描述文件 (text.md)
-                    std::string descriptionPath = "../SQL/title/" + questionPath + "text.md";
+                    // 读取题目描述文件，使用正确的文件名格式
+                    std::string descriptionPath = "../SQL/title/" + questionPath + ss.str() + ".md";
                     std::ifstream descFile(descriptionPath);
                     if (descFile.is_open()) {
                         std::stringstream descBuffer;
@@ -664,7 +667,7 @@ Json::Value QuestionService::updateQuestion(int t_question_id, const std::string
         
         if (data.isMember("subjects")) {
             for (auto& question : data["subjects"]) {
-                if (question["question_id"].asInt() == t_question_id) {
+                if (question["id"].asInt() == t_question_id) {
                     if (!t_question_name.empty()) {
                         question["name"] = t_question_name;
                     }
@@ -714,7 +717,7 @@ Json::Value QuestionService::deleteQuestion(int t_question_id) {
             int type_id = -1;
             
             for (const auto& question : data["subjects"]) {
-                if (question["question_id"].asInt() != t_question_id) {
+                if (question["id"].asInt() != t_question_id) {
                     newQuestions.append(question);
                 } else {
                     found = true;

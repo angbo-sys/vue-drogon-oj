@@ -1,0 +1,16 @@
+{
+      "questionContent": "反向输出一个三位数",
+      "questionsNumber":10,
+      "testCases": [
+        { "questionContent": "100", "answerContent": "001" },
+        { "questionContent": "003", "answerContent": "300" },
+        { "questionContent": "158" , "answerContent": "851" },
+        { "questionContent": "789", "answerContent": "987" },
+        { "questionContent": "123", "answerContent": "321" },
+        { "questionContent": "857", "answerContent": "758" },
+        { "questionContent": "225", "answerContent": "522" },
+        { "questionContent": "999", "answerContent": "999" },
+        { "questionContent": "605", "answerContent": "506" },
+        { "questionContent": "456", "answerContent": "654" }
+      ]
+    }

@@ -1,0 +1,46 @@
+{
+    "questionContent": "[语言月赛202212] 不可以，总司令",
+    "questionsNumber": 10,
+    "testCases": [
+        {
+            "questionContent": "45 0",
+            "answerContent": "nO"
+        },
+        {
+            "questionContent": "0 45",
+            "answerContent": "yEs"
+        },
+        {
+            "questionContent": "49 51",
+            "answerContent": "yeS"
+        },
+        {
+            "questionContent": "50 50",
+            "answerContent": "equal probability"
+        },
+        {
+            "questionContent": "10 20",
+            "answerContent": "yEs"
+        },
+        {
+            "questionContent": "30 10",
+            "answerContent": "nO"
+        },
+        {
+            "questionContent": "80 80",
+            "answerContent": "equal probability"
+        },
+        {
+            "questionContent": "90 70",
+            "answerContent": "nO"
+        },
+        {
+            "questionContent": "25 35",
+            "answerContent": "yEs"
+        },
+        {
+            "questionContent": "60 60",
+            "answerContent": "equal probability"
+        }
+    ]
+}

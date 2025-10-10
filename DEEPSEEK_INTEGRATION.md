@@ -9,7 +9,7 @@
 ### 1. DeepSeek API集成
 - **API端点**: `https://api.deepseek.com/v1/chat/completions`
 - **模型**: `deepseek-chat`
-- **API密钥**: `自行补全`
+- **API密钥**: `自动补全`
 - **超时设置**: 30秒
 - **最大令牌数**: 1000
 - **温度参数**: 0.7
@@ -52,7 +52,7 @@ newVue/Db-frontend/src/
 {
   "deepseek": {
     "api_url": "https://api.deepseek.com/v1/chat/completions",
-    "api_key": "自行补全",
+    "api_key": "自动补全",
     "model": "deepseek-chat",
     "max_tokens": 1000,
     "temperature": 0.7,

@@ -1,0 +1,16 @@
+{
+"questionContent": "密码翻译",
+"questionsNumber": 10,
+"testCases": [
+{ "questionContent": "Ifmmp !  Ipx  bsf  zpv!", "answerContent": "Hello !  How  are  you!" },
+{ "questionContent": "Abc Xyz 123!", "answerContent": "Zab Wxy 123!" },
+{ "questionContent": "ZzYyXx", "answerContent": "YyXxWw" },
+{ "questionContent": "a", "answerContent": "z" },
+{ "questionContent": "A", "answerContent": "Z" },
+{ "questionContent": "Hello, World! 2024", "answerContent": "Gdkkn, Vnqkc! 2024" },
+{ "questionContent": "Nop Qrs Tuv", "answerContent": "Mno Pqr Stu" },
+{ "questionContent": "123 @ # $ %", "answerContent": "123 @ # $ %" },
+{ "questionContent": "YyZzAaBb", "answerContent": "XxYyZzAa" },
+{ "questionContent": "This is a Test!", "answerContent": "Sghr hr z Sdrs!" }
+]
+}

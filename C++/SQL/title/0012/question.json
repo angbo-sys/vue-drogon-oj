@@ -1,0 +1,16 @@
+{
+"questionContent": "求平均年龄",
+"questionsNumber": 10,
+"testCases": [
+{ "questionContent": "2\n18\n17", "answerContent": "17.50" },
+{ "questionContent": "1\n20", "answerContent": "20.00" },
+{ "questionContent": "3\n15\n20\n25", "answerContent": "20.00" },
+{ "questionContent": "5\n19\n19\n19\n19\n19", "answerContent": "19.00" },
+{ "questionContent": "4\n16\n17\n18\n19", "answerContent": "17.50" },
+{ "questionContent": "6\n21\n22\n23\n24\n25\n15", "answerContent": "20.33" },
+{ "questionContent": "7\n18\n20\n22\n17\n19\n21\n23", "answerContent": "20.00" },
+{ "questionContent": "8\n15\n15\n25\n25\n20\n20\n18\n22", "answerContent": "19.88" },
+{ "questionContent": "9\n24\n23\n22\n21\n20\n19\n18\n17\n16", "answerContent": "20.00" },
+{ "questionContent": "10\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24", "answerContent": "19.50" }
+]
+}

@@ -1,0 +1,46 @@
+{
+    "questionContent": "【深进1.例1】求区间和",
+    "questionsNumber": 10,
+    "testCases": [
+        {
+            "questionContent": "4\n4 3 2 1\n2\n1 4\n2 3",
+            "answerContent": "10\n5"
+        },
+        {
+            "questionContent": "5\n1 2 3 4 5\n3\n1 1\n3 5\n2 4",
+            "answerContent": "1\n12\n9"
+        },
+        {
+            "questionContent": "1\n100\n1\n1 1",
+            "answerContent": "100"
+        },
+        {
+            "questionContent": "6\n5 5 5 5 5 5\n4\n1 6\n2 5\n3 3\n1 2",
+            "answerContent": "30\n20\n5\n10"
+        },
+        {
+            "questionContent": "8\n1 3 2 4 7 6 5 8\n3\n1 8\n4 6\n2 7",
+            "answerContent": "36\n17\n27"
+        },
+        {
+            "questionContent": "3\n10 20 30\n2\n1 3\n2 2",
+            "answerContent": "60\n20"
+        },
+        {
+            "questionContent": "7\n2 4 6 8 10 12 14\n3\n1 7\n3 5\n5 7",
+            "answerContent": "56\n24\n36"
+        },
+        {
+            "questionContent": "2\n99 1\n2\n1 2\n1 1",
+            "answerContent": "100\n99"
+        },
+        {
+            "questionContent": "9\n1 1 1 1 1 1 1 1 1\n3\n1 9\n2 8\n5 5",
+            "answerContent": "9\n7\n1"
+        },
+        {
+            "questionContent": "10\n10 20 30 40 50 60 70 80 90 100\n4\n1 5\n6 10\n3 8\n2 9",
+            "answerContent": "150\n400\n330\n440"
+        }
+    ]
+}

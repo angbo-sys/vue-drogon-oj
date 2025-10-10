@@ -1,0 +1,36 @@
+{
+    "likeNumber" : 6,
+    "likes" : 
+    [
+        {
+            "analysis_id" : 67804,
+            "liked_at" : 1760067014,
+            "user_id" : "test_user"
+        },
+        {
+            "analysis_id" : 67804,
+            "liked_at" : 1760067111,
+            "user_id" : "1"
+        },
+        {
+            "analysis_id" : 67322,
+            "liked_at" : 1760067112,
+            "user_id" : "1"
+        },
+        {
+            "analysis_id" : 67804,
+            "liked_at" : 1760067224,
+            "user_id" : "7688"
+        },
+        {
+            "analysis_id" : 67322,
+            "liked_at" : 1760067225,
+            "user_id" : "7688"
+        },
+        {
+            "analysis_id" : 68439,
+            "liked_at" : 1760067633,
+            "user_id" : "1"
+        }
+    ]
+}

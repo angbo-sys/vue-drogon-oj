@@ -1,45 +1,16 @@
-{
-    "questionsNumber":10,
-    "questions":[
-        {
-            "questionContent":"10+10",
-            "answerContent":"20"
-        },
-        {
-            "questionContent":"20+20",
-            "answerContent":"40"
-        },
-        {
-            "questionContent":"30+30",
-            "answerContent":"60"
-        },
-        {
-            "questionContent":"40+40",
-            "answerContent":"80"
-        },
-        {
-            "questionContent":"50+50",
-            "answerContent":"100"
-        },
-        {
-            "questionContent":"60+60",
-            "answerContent":"120"
-        },
-        {
-            "questionContent":"70+70",
-            "answerContent":"140"
-        },
-        {
-            "questionContent":"80+80",
-            "answerContent":"160"
-        },
-        {
-            "questionContent":"90+90",
-            "answerContent":"180"
-        },
-        {
-            "questionContent":"100+100",
-            "answerContent":"200"
-        }
-    ]
-}
+  {
+      "questionContent": "两数差的绝对值",
+      "questionsNumber":10,
+      "testCases": [
+        { "questionContent": "5 3", "answerContent": "2" },
+        { "questionContent": "10 20", "answerContent": "10" },
+        { "questionContent": "0 0", "answerContent": "0" },
+        { "questionContent": "100 50", "answerContent": "50" },
+        { "questionContent": "-5 3", "answerContent": "8" },
+        { "questionContent": "3 -5", "answerContent": "8" },
+        { "questionContent": "1000 999", "answerContent": "1" },
+        { "questionContent": "999 1000", "answerContent": "1" },
+        { "questionContent": "123 456", "answerContent": "333" },
+        { "questionContent": "456 123", "answerContent": "333" }
+      ]
+    }

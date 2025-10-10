@@ -1,0 +1,16 @@
+{
+"questionContent": "查找特定的值",
+"questionsNumber": 10,
+"testCases": [
+{ "questionContent": "5\n2 3 6 7 3\n3", "answerContent": "1" },
+{ "questionContent": "1\n10\n10", "answerContent": "0" },
+{ "questionContent": "6\n-5 0 3 -5 8 1\n-5", "answerContent": "0" },
+{ "questionContent": "4\n11 22 33 44\n55", "answerContent": "-1" },
+{ "questionContent": "8\n9 9 9 9 9 9 9 9\n9", "answerContent": "0" },
+{ "questionContent": "7\n1 3 5 7 9 11 13\n7", "answerContent": "3" },
+{ "questionContent": "10\n-100 200 -300 400 -500 600 -700 800 -900 1000\n-700", "answerContent": "6" },
+{ "questionContent": "3\n0 0 0\n0", "answerContent": "0" },
+{ "questionContent": "9\n5 3 1 2 4 6 8 7 9\n2", "answerContent": "3" },
+{ "questionContent": "6\n123 456 789 0 -123 -456\n789", "answerContent": "2" }
+]
+}

@@ -1,0 +1,16 @@
+{
+"questionContent": "整数的个数",
+"questionsNumber": 10,
+"testCases": [
+{ "questionContent": "5\n1 5 8 10 5", "answerContent": "1\n2\n1" },
+{ "questionContent": "3\n1 1 1", "answerContent": "3\n0\n0" },
+{ "questionContent": "4\n5 5 5 5", "answerContent": "0\n4\n0" },
+{ "questionContent": "6\n10 10 10 10 10 10", "answerContent": "0\n0\n6" },
+{ "questionContent": "7\n1 5 10 1 5 10 2", "answerContent": "2\n2\n2" },
+{ "questionContent": "2\n3 7", "answerContent": "0\n0\n0" },
+{ "questionContent": "8\n1 10 1 10 1 10 1 10", "answerContent": "4\n0\n4" },
+{ "questionContent": "9\n5 5 5 1 1 1 10 10 10", "answerContent": "4\n3\n3" },
+{ "questionContent": "1\n10", "answerContent": "0\n0\n1" },
+{ "questionContent": "10\n1 5 10 2 3 4 6 7 8 9", "answerContent": "1\n1\n1" }
+]
+}

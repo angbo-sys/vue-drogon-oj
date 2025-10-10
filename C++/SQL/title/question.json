@@ -1,35 +1,449 @@
 {
-    "subjectNumber":2,
-    "difficultyCalculate":[
-        {"difficulty_id":0,"difficultyName":"入门","count":2},
-        {"difficulty_id":1,"difficultyName":"简单","count":0},
-        {"difficulty_id":2,"difficultyName":"中等","count":0},
-        {"difficulty_id":3,"difficultyName":"困难","count":0}
-    ],
-    "typeCalculate":[
-        {"type_id":0,"typeName":"无类型","count":2},
-        {"type_id":1,"typeName":"动态规划","count":0},
-        {"type_id":2,"typeName":"前缀和","count":0},
-        {"type_id":3,"typeName":"贪心","count":0}
-    ],
-    "subjects":[
+    "subjectNumber": 50,
+    "difficultyCalculate": [
         {
-        "question_id":0,
-        "name":"P1001 A+B Problem",
-        "path":"./0001/",
-        "source":"Luogu P1001",
-        "difficulty_id":0,
-        "type_id":"0"
+            "difficulty_id": 0,
+            "difficultyName": "入门",
+            "count": 23
+        },
+        {
+            "difficulty_id": 1,
+            "difficultyName": "简单",
+            "count": 3
+        },
+        {
+            "difficulty_id": 2,
+            "difficultyName": "中等",
+            "count": 8
+        },
+        {
+            "difficulty_id": 3,
+            "difficultyName": "困难",
+            "count": 16
+        }
+    ],
+    "typeCalculate": [
+        {
+            "type_id": 0,
+            "typeName": "无类型",
+            "count": 39
+        },
+        {
+            "type_id": 1,
+            "typeName": "动态规划",
+            "count": 6
+        },
+        {
+            "type_id": 2,
+            "typeName": "前缀和",
+            "count": 3
+        },
+        {
+            "type_id": 3,
+            "typeName": "贪心",
+            "count": 2
+        }
+    ],
+    "subjects": [
+        {
+            "id": 1,
+            "name": "P1001 A+B Problem",
+            "path": "./0001/",
+            "source": "Luogu P1001",
+            "difficulty_id": 0,
+            "type_id": "0"
+        },
+        {
+            "id": 2,
+            "name": "两数差的绝对值",
+            "path": "./0002/",
+            "source": "Luogu P2788",
+            "difficulty_id": 0,
+            "type_id": "0"
+        },
+        {
+            "id": 3,
+            "name": "(a+b)*c",
+            "path": "./0003/",
+            "source": "Luogu B2008",
+            "difficulty_id": 0,
+            "type_id": "0"
+        },
+        {
+            "id": 4,
+            "name": "反向输出一个三位数",
+            "path": "./0004/",
+            "source": "Luogu B2028",
+            "difficulty_id": 0,
+            "type_id": "0"
+        },
+        {
+            "id": 5,
+            "name": "奇数求和",
+            "path": "./0005/",
+            "source": "Luogu B2059",
+            "difficulty_id": 0,
+            "type_id": "0"
+        },
+        {
+            "id": 6,
+            "name": "整数的个数",
+            "path": "./0006/",
+            "source": "Luogu B2061",
+            "difficulty_id": 0,
+            "type_id": "0"
+        },
+        {
+            "id": 7,
+            "name": "求出 e 的值",
+            "path": "./0007/",
+            "source": "Luogu B2079",
+            "difficulty_id": 0,
+            "type_id": "0"
+        },
+        {
+            "id": 8,
+            "name": "与 7 无关的数",
+            "path": "./0008/",
+            "source": "Luogu B2081",
+            "difficulty_id": 0,
+            "type_id": "0"
+        },
+        {
+            "id": 9,
+            "name": "向量点积计算",
+            "path": "./0009/",
+            "source": "Luogu B2091",
+            "difficulty_id": 0,
+            "type_id": "0"
+        },
+        {
+            "id": 10,
+            "name": "计算多项式的值",
+            "path": "./0010/",
+            "source": "Luogu B2065",
+            "difficulty_id": 0,
+            "type_id": "0"
+        },
+        {
+            "id": 11,
+            "name": "满足条件的数累加",
+            "path": "./0011/",
+            "source": "Luogu B2060",
+            "difficulty_id": 0,
+            "type_id": "0"
+        },
+        {
+            "id": 12,
+            "name": "求平均年龄",
+            "path": "./0012/",
+            "source": "Luogu B2054",
+            "difficulty_id": 0,
+            "type_id": "0"
+        },
+        {
+            "id": 13,
+            "name": "计算 n! 的值",
+            "path": "./0013/",
+            "source": "Luogu B2057",
+            "difficulty_id": 0,
+            "type_id": "0"
+        },
+        {
+            "id": 14,
+            "name": "均值",
+            "path": "./0014/",
+            "source": "Luogu B2055",
+            "difficulty_id": 0,
+            "type_id": "0"
+        },
+        {
+            "id": 15,
+            "name": "查找特定的值",
+            "path": "./0015/",
+            "source": "Luogu B2093",
+            "difficulty_id": 0,
+            "type_id": "0"
+        },
+        {
+            "id": 16,
+            "name": "计算立方和",
+            "path": "./0016/",
+            "source": "Luogu B2109",
+            "difficulty_id": 0,
+            "type_id": "0"
+        },
+        {
+            "id": 17,
+            "name": "计算平方和",
+            "path": "./0017/",
+            "source": "Luogu B2110",
+            "difficulty_id": 0,
+            "type_id": "0"
+        },
+        {
+            "id": 18,
+            "name": "计算平方差",
+            "path": "./0018/",
+            "source": "Luogu B2111",
+            "difficulty_id": 0,
+            "type_id": "0"
+        },
+        {
+            "id": 19,
+            "name": "石头剪子布",
+            "path": "./0019/",
+            "source": "Luogu B2112",
+            "difficulty_id": 0,
+            "type_id": "0"
+        },
+        {
+            "id": 20,
+            "name": "密码翻译",
+            "path": "./0020/",
+            "source": "Luogu B2115",
+            "difficulty_id": 0,
+            "type_id": "0"
+        },
+        {
+            "id": 21,
+            "name": "加密的病历单",
+            "path": "./0021/",
+            "source": "Luogu B2116",
+            "difficulty_id": 0,
+            "type_id": "0"
+        },
+        {
+            "id": 22,
+            "name": "矩阵乘法",
+            "path": "./0022/",
+            "source": "Luogu B2105",
+            "difficulty_id": 0,
+            "type_id": "0"
+        },
+        {
+            "id": 23,
+            "name": "确定进制",
+            "path": "./0023/",
+            "source": "Luogu B2141",
+            "difficulty_id": 0,
+            "type_id": "0"
+        },
+        {
+            "id": 24,
+            "name": "棋盘覆盖",
+            "path": "./0024/",
+            "source": "Luogu P1873",
+            "difficulty_id": 2,
+            "type_id": "0"
+        },
+        {
+            "id": 25,
+            "name": "[图论与代数结构 202] 最短路问题_2",
+            "path": "./0025/",
+            "source": "Luogu B3602",
+            "difficulty_id": 2,
+            "type_id": "0"
+        },
+        {
+            "id": 26,
+            "name": "[图论与代数结构 202] 最短路问题_1",
+            "path": "./0026/",
+            "source": "Luogu B3601",
+            "difficulty_id": 2,
+            "type_id": "0"
+        },
+        {
+            "id": 27,
+            "name": "【深进1.例1】求区间和",
+            "path": "./0027/",
+            "source": "Luogu B3612",
+            "difficulty_id": 3,
+            "type_id": "0"
+        },
+        {
+            "id": 28,
+            "name": "寻找团伙",
+            "path": "./0028/",
+            "source": "Luogu P3618",
+            "difficulty_id": 3,
+            "type_id": "0"
+        },
+        {
+            "id": 29,
+            "name": "机器猫斗恶龙",
+            "path": "./0029/",
+            "source": "Luogu P3628",
+            "difficulty_id": 3,
+            "type_id": "0"
+        },
+        {
+            "id": 30,
+            "name": "跳跃机器人",
+            "path": "./0030/",
+            "source": "Luogu P3626",
+            "difficulty_id": 3,
+            "type_id": "0"
+        },
+        {
+            "id": 31,
+            "name": "[语言月赛202209] 课程QQ群",
+            "path": "./0031/",
+            "source": "Luogu P3659",
+            "difficulty_id": 3,
+            "type_id": "0"
+        },
+        {
+            "id": 32,
+            "name": "[语言月赛202210] 玉桂狗",
+            "path": "./0032/",
+            "source": "Luogu P3670",
+            "difficulty_id": 1,
+            "type_id": "0"
+        },
+    {
+            "id": 33,
+            "name": "[语言月赛202210] 图书新编",
+            "path": "./0033/",
+            "source": "Luogu P3672",
+            "difficulty_id": 3,
+            "type_id": "0"
+        },
+        {
+            "id": 34,
+            "name": "[语言月赛202212] 不可以，总司令",
+            "path": "./0034/",
+            "source": "Luogu P3684",
+            "difficulty_id": 1,
+            "type_id": "0"
+        },
+        {
+            "id": 35,
+            "name": "[语言月赛202212]  洛谷三角洲",
+            "path": "./0035/",
+            "source": "Luogu P3686",
+            "difficulty_id": 3,
+            "type_id": "0"
+        },
+        {
+            "id": 36,
+            "name": "[语言月赛202302] 大碗宽面",
+            "path": "./0036/",
+            "source": "Luogu P3712",
+            "difficulty_id": 2,
+            "type_id": "0"
+        },
+        {
+            "id": 37,
+            "name": "[语言月赛202302]  最澄澈的空与海",
+            "path": "./0037/",
+            "source": "Luogu P3709",
+            "difficulty_id": 3,
+            "type_id": "0"
+        },
+        {
+            "id": 38,
+            "name": "[信息与未来 2017] 加强版密码锁",
+            "path": "./0038/",
+            "source": "Luogu P3734",
+            "difficulty_id": 3,
+            "type_id": "0"
+        },
+        {
+            "id": 39,
+            "name": "BZOJ3589 动态树",
+            "path": "./0039/",
+            "source": "Luogu P12693",
+            "difficulty_id": 3,
+            "type_id": "1"
+        },
+        {
+            "id": 40,
+            "name": "【模板】动态树(LCT)",
+            "path": "./0040/",
+            "source": "Luogu P3679",
+            "difficulty_id": 2,
+            "type_id": "1"
+        },
+        {
+            "id": 41,
+            "name": "[THUPC 2018] 城市地铁规划",
+            "path": "./0041/",
+            "source": "Luogu P5454",
+            "difficulty_id": 3,
+            "type_id": "1"
     },
     {
-        "question_id":1,
-        "name":"P1002 A+B Problem",
-        "path":"./0002/",
-        "source":"Luogu P1002",
-        "difficulty_id":1,
-        "type_id":"0"
-    }
+            "id": 42,
+            "name": "恋爱",
+            "path": "./0042/",
+            "source": "Luogu P3408",
+            "difficulty_id": 2,
+            "type_id": "1"
+        },
+        {
+            "id": 43,
+            "name": "狗哥采矿",
+            "path": "./0043/",
+            "source": "Luogu P2380",
+            "difficulty_id": 3,
+            "type_id": "1"
+        },
+        {
+            "id": 44,
+            "name": "看球泡妹子",
+            "path": "./0044/",
+            "source": "Luogu P2113",
+            "difficulty_id": 2,
+            "type_id": "1"
+        },
+        {
+            "id": 45,
+            "name": "又上锁妖塔",
+            "path": "./0045/",
+            "source": "Luogu P2800",
+            "difficulty_id": 1,
+            "type_id": "1"
+        },
+        {
+            "id": 46,
+            "name": "数列前缀和 3",
+            "path": "./0046/",
+            "source": "Luogu P3646",
+            "difficulty_id": 2,
+            "type_id": "2"
+        },
+        {
+            "id": 47,
+            "name": "数列前缀和 4",
+            "path": "./0047/",
+            "source": "Luogu P3693",
+            "difficulty_id": 3,
+            "type_id": "2"
+        },
+        {
+            "id": 48,
+            "name": "GESP202406 四级] 黑白方块",
+            "path": "./0048/",
+            "source": "Luogu P4005",
+            "difficulty_id": 3,
+            "type_id": "2"
+        },
+        {
+            "id": 49,
+            "name": "[GESP202309 五级] 巧夺大奖",
+            "path": "./0049/",
+            "source": "Luogu P3872",
+            "difficulty_id": 3,
+            "type_id": "3"
+        },
+        {
+            "id": 50,
+            "name": "[GESP202409 五级] 小杨的武器",
+            "path": "./0050/",
+            "source": "Luogu P4051",
+            "difficulty_id": 3,
+            "type_id": "3"
+        }
     ]
-    
 }
-    

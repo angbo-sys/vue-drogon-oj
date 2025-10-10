@@ -1,0 +1,16 @@
+{
+"questionContent": "与 7 无关的数",
+"questionsNumber": 10,
+"testCases": [
+{ "questionContent": "21", "answerContent": "2336" },
+{ "questionContent": "7", "answerContent": "91" },
+{ "questionContent": "10", "answerContent": "272" },
+{ "questionContent": "1", "answerContent": "1" },
+{ "questionContent": "20", "answerContent": "2556" },
+{ "questionContent": "30", "answerContent": "7236" },
+{ "questionContent": "5", "answerContent": "55" },
+{ "questionContent": "17", "answerContent": "1383" },
+{ "questionContent": "40", "answerContent": "13951" },
+{ "questionContent": "99", "answerContent": "276740" }
+]
+}

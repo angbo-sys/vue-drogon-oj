@@ -1,5 +1,5 @@
 {
-    "submissionNumber" : 59,
+    "submissionNumber" : 73,
     "submissions" : 
     [
         {
@@ -1168,6 +1168,248 @@
                 "Test case 10: AC"
             ],
             "user_id" : "4469"
+        },
+        {
+            "code" : "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    cout << a + b << endl;\n    return 0;\n}",
+            "error" : "",
+            "execution_time" : 0.45172395799999998,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "Wrong answer on test case 1",
+            "output" : "90\n",
+            "question_id" : 12,
+            "status" : "WA",
+            "submission_id" : "1760064554_393438",
+            "submitted_at" : "1760064556",
+            "test_case_results" : [],
+            "user_id" : "1"
+        },
+        {
+            "code" : "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"17.50\" << endl;\n    return 0;\n}",
+            "error" : "",
+            "execution_time" : 0.63138499599999998,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "Wrong answer on test case 1",
+            "output" : "17.50\n",
+            "question_id" : 12,
+            "status" : "WA",
+            "submission_id" : "1760064599_264631",
+            "submitted_at" : "1760064601",
+            "test_case_results" : [],
+            "user_id" : "1"
+        },
+        {
+            "code" : "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    \n    int sum = 0;\n    for (int i = 0; i < n; i++) {\n        int age;\n        cin >> age;\n        sum += age;\n    }\n    \n    double average = static_cast<double>(sum) / n;\n    cout << fixed << setprecision(2) << average << endl;\n    \n    return 0;\n}",
+            "error" : "",
+            "execution_time" : 0.67180371500000002,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "Wrong answer on test case 1",
+            "output" : "82.40\n",
+            "question_id" : 12,
+            "status" : "WA",
+            "submission_id" : "1760064690_596542",
+            "submitted_at" : "1760064692",
+            "test_case_results" : [],
+            "user_id" : "1"
+        },
+        {
+            "code" : "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    \n    int sum = 0;\n    for (int i = 0; i < n; i++) {\n        int age;\n        cin >> age;\n        sum += age;\n    }\n    \n    double average = 1.0*sum / n;\n    cout << fixed << setprecision(2) << average << endl;\n    \n    return 0;\n}",
+            "error" : "",
+            "execution_time" : 0.62887185099999998,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "Wrong answer on test case 1",
+            "output" : "82.40\n",
+            "question_id" : 12,
+            "status" : "WA",
+            "submission_id" : "1760064795_919751",
+            "submitted_at" : "1760064797",
+            "test_case_results" : [],
+            "user_id" : "1"
+        },
+        {
+            "code" : "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    \n    int sum = 0;\n    for (int i = 0; i < n; i++) {\n        int age;\n        cin >> age;\n        sum += age;\n    }\n    \n    double average = 1.0*sum / n;\n    cout << fixed << setprecision(2) << average << endl;\n    \n    return 0;\n}",
+            "error" : "",
+            "execution_time" : 0.57134349399999995,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "Wrong answer on test case 1",
+            "output" : "82.40\n",
+            "question_id" : 12,
+            "status" : "WA",
+            "submission_id" : "1760064832_196840",
+            "submitted_at" : "1760064833",
+            "test_case_results" : [],
+            "user_id" : "1"
+        },
+        {
+            "code" : "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    \n    int sum = 0;\n    for (int i = 0; i < n; i++) {\n        int age;\n        cin >> age;\n        sum += age;\n    }\n    \n    double average = 1.0*sum / n;\n    printf(\"%0.2f\",average);\n    return 0;\n}",
+            "error" : "",
+            "execution_time" : 0.55307560899999997,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "Wrong answer on test case 1",
+            "output" : "82.40",
+            "question_id" : 12,
+            "status" : "WA",
+            "submission_id" : "1760065037_594494",
+            "submitted_at" : "1760065039",
+            "test_case_results" : [],
+            "user_id" : "1"
+        },
+        {
+            "code" : "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    \n    int sum = 0;\n    for (int i = 0; i < n; i++) {\n        int age;\n        cin >> age;\n        sum += age;\n    }\n    \n    double average = 1.0*sum / n;\n    printf(\"%0.2f\",average);\n    return 0;\n}",
+            "error" : "",
+            "execution_time" : 0.40653940199999999,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "Wrong answer on test case 1",
+            "output" : "82.40",
+            "question_id" : 12,
+            "status" : "WA",
+            "submission_id" : "1760065102_846444",
+            "submitted_at" : "1760065104",
+            "test_case_results" : [],
+            "user_id" : "1"
+        },
+        {
+            "code" : "#include <iostream>\nusing namespace std;\n\nbool isRelatedTo7(int x) {\n    // \u5224\u65ad\u662f\u5426\u80fd\u88ab 7 \u6574\u9664\n    if (x % 7 == 0) return true;\n    // \u5224\u65ad\u67d0\u4e00\u4f4d\u662f\u5426\u4e3a 7\n    int t = x;\n    while (t > 0) {\n        if (t % 10 == 7) return true;\n        t /= 10;\n    }\n    return false;\n}\n\nint main() {\n    int n;\n    cin >> n;\n    int sum = 0;\n    for (int i = 1; i <= n; i++) {\n        if (!isRelatedTo7(i)) {\n            sum += i * i;\n        }\n    }\n    cout << sum << endl;\n    return 0;\n}",
+            "error" : "",
+            "execution_time" : 0.55630797600000004,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "Wrong answer on test case 1",
+            "output" : "14\n",
+            "question_id" : 8,
+            "status" : "WA",
+            "submission_id" : "1760065176_695762",
+            "submitted_at" : "1760065178",
+            "test_case_results" : [],
+            "user_id" : "1"
+        },
+        {
+            "code" : "#include <iostream>\nusing namespace std;\n\nbool isRelatedTo7(int x) {\n    // \u5224\u65ad\u662f\u5426\u80fd\u88ab 7 \u6574\u9664\n    if (x % 7 == 0) return true;\n    // \u5224\u65ad\u67d0\u4e00\u4f4d\u662f\u5426\u4e3a 7\n    int t = x;\n    while (t > 0) {\n        if (t % 10 == 7) return true;\n        t /= 10;\n    }\n    return false;\n}\n\nint main() {\n    int n;\n    cin >> n;\n    int sum = 0;\n    for (int i = 1; i <= n; i++) {\n        if (!isRelatedTo7(i)) {\n            sum += i * i;\n        }\n    }\n    cout << sum << endl;\n    return 0;\n}",
+            "error" : "",
+            "execution_time" : 0.89584171400000001,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "Wrong answer on test case 1",
+            "output" : "14\n",
+            "question_id" : 8,
+            "status" : "WA",
+            "submission_id" : "1760065266_632661",
+            "submitted_at" : "1760065268",
+            "test_case_results" : [],
+            "user_id" : "1"
+        },
+        {
+            "code" : "#include <iostream>\nusing namespace std;\n\nbool isRelatedTo7(int x) {\n    // \u5224\u65ad\u662f\u5426\u80fd\u88ab 7 \u6574\u9664\n    if (x % 7 == 0) return true;\n    // \u5224\u65ad\u67d0\u4e00\u4f4d\u662f\u5426\u4e3a 7\n    int t = x;\n    while (t > 0) {\n        if (t % 10 == 7) return true;\n        t /= 10;\n    }\n    return false;\n}\n\nint main() {\n    int n;\n    cin >> n;\n    int sum = 0;\n    for (int i = 1; i <= n; i++) {\n        if (!isRelatedTo7(i)) {\n            sum += i * i;\n        }\n    }\n    cout << sum << endl;\n    return 0;\n}",
+            "error" : "",
+            "execution_time" : 0.56759805500000005,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "Wrong answer on test case 1",
+            "output" : "14\n",
+            "question_id" : 8,
+            "status" : "WA",
+            "submission_id" : "1760065320_620016",
+            "submitted_at" : "1760065322",
+            "test_case_results" : [],
+            "user_id" : "1"
+        },
+        {
+            "code" : "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    cout << a + b << endl;\n    return 0;\n}",
+            "error" : "",
+            "execution_time" : 0.54426934800000004,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "All test cases passed",
+            "output" : "",
+            "question_id" : 1,
+            "status" : "AC",
+            "submission_id" : "1760065662_834313",
+            "submitted_at" : "1760065664",
+            "test_case_results" : 
+            [
+                "Test case 1: AC",
+                "Test case 2: AC",
+                "Test case 3: AC",
+                "Test case 4: AC",
+                "Test case 5: AC",
+                "Test case 6: AC",
+                "Test case 7: AC",
+                "Test case 8: AC",
+                "Test case 9: AC",
+                "Test case 10: AC"
+            ],
+            "user_id" : "1"
+        },
+        {
+            "code" : "#include <iostream>\nusing namespace std;\n\nbool isRelatedTo7(int x) {\n    // \u5224\u65ad\u662f\u5426\u80fd\u88ab 7 \u6574\u9664\n    if (x % 7 == 0) return true;\n    // \u5224\u65ad\u67d0\u4e00\u4f4d\u662f\u5426\u4e3a 7\n    int t = x;\n    while (t > 0) {\n        if (t % 10 == 7) return true;\n        t /= 10;\n    }\n    return false;\n}\n\nint main() {\n    int n;\n    cin >> n;\n    int sum = 0;\n    for (int i = 1; i <= n; i++) {\n        if (!isRelatedTo7(i)) {\n            sum += i * i;\n        }\n    }\n    cout << sum << endl;\n    return 0;\n}",
+            "error" : "",
+            "execution_time" : 0.413805849,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "Wrong answer on test case 3",
+            "output" : "336\n",
+            "question_id" : 8,
+            "status" : "WA",
+            "submission_id" : "1760065690_342582",
+            "submitted_at" : "1760065692",
+            "test_case_results" : 
+            [
+                "Test case 1: AC",
+                "Test case 2: AC"
+            ],
+            "user_id" : "1"
+        },
+        {
+            "code" : "#include <iostream>\nusing namespace std;\n\nbool isRelatedTo7(int x) {\n    // \u5224\u65ad\u662f\u5426\u80fd\u88ab 7 \u6574\u9664\n    if (x % 7 == 0) return true;\n    // \u5224\u65ad\u67d0\u4e00\u4f4d\u662f\u5426\u4e3a 7\n    int t = x;\n    while (t > 0) {\n        if (t % 10 == 7) return true;\n        t /= 10;\n    }\n    return false;\n}\n\nint main() {\n    int n;\n    cin >> n;\n    int sum = 0;\n    for (int i = 1; i <= n; i++) {\n        if (!isRelatedTo7(i)) {\n            sum += i * i;\n        }\n    }\n    cout << sum << endl;\n    return 0;\n}",
+            "error" : "",
+            "execution_time" : 0.40499745100000001,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "Wrong answer on test case 3",
+            "output" : "336\n",
+            "question_id" : 8,
+            "status" : "WA",
+            "submission_id" : "1760065706_201688",
+            "submitted_at" : "1760065707",
+            "test_case_results" : 
+            [
+                "Test case 1: AC",
+                "Test case 2: AC"
+            ],
+            "user_id" : "1"
+        },
+        {
+            "code" : "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    cout << a + b << endl;\n    return 0;\n}",
+            "error" : "",
+            "execution_time" : 0.60736796900000001,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "All test cases passed",
+            "output" : "",
+            "question_id" : 1,
+            "status" : "AC",
+            "submission_id" : "1760068056_612350",
+            "submitted_at" : "1760068058",
+            "test_case_results" : 
+            [
+                "Test case 1: AC",
+                "Test case 2: AC",
+                "Test case 3: AC",
+                "Test case 4: AC",
+                "Test case 5: AC",
+                "Test case 6: AC",
+                "Test case 7: AC",
+                "Test case 8: AC",
+                "Test case 9: AC",
+                "Test case 10: AC"
+            ],
+            "user_id" : "1"
         }
     ]
 }

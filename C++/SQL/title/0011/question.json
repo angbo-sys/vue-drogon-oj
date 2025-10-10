@@ -1,0 +1,16 @@
+{
+"questionContent": "满足条件的数累加",
+"questionsNumber": 10,
+"testCases": [
+{ "questionContent": "50 85", "answerContent": "204" },
+{ "questionContent": "1 17", "answerContent": "17" },
+{ "questionContent": "18 34", "answerContent": "34" },
+{ "questionContent": "35 68", "answerContent": "51+68=119" },
+{ "questionContent": "100 200", "answerContent": "102+119+136+153+170+187=867" },
+{ "questionContent": "900 999", "answerContent": "901+918+935+952+969+986=5661" },
+{ "questionContent": "17 17", "answerContent": "17" },
+{ "questionContent": "200 300", "answerContent": "204+221+238+255+272+289=1479" },
+{ "questionContent": "500 600", "answerContent": "510+527+544+561+578+595=3315" },
+{ "questionContent": "1 999", "answerContent": "5883" }
+]
+}

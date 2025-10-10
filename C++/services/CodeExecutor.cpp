@@ -180,6 +180,13 @@ ExecutionResult CodeExecutor::runProgram(const std::string& program_path,
                 result.status = ExecutionStatus::WA;
                 result.message = "Wrong answer on test case " + std::to_string(i + 1);
                 result.output = actual_output;
+                
+                // 添加调试信息
+                std::cerr << "Test case " << (i + 1) << " failed:" << std::endl;
+                std::cerr << "Input: " << test_case.input << std::endl;
+                std::cerr << "Expected: '" << test_case.expected_output << "'" << std::endl;
+                std::cerr << "Actual: '" << actual_output << "'" << std::endl;
+                
                 cleanup(input_file);
                 cleanup(output_file);
                 return result;
@@ -213,6 +220,14 @@ bool CodeExecutor::validateOutput(const std::string& actual_output, const std::s
     while (!expected.empty() && (expected.back() == '\n' || expected.back() == '\r' || expected.back() == ' ')) {
         expected.pop_back();
     }
+    
+    // 添加调试信息
+    std::cerr << "Comparing outputs:" << std::endl;
+    std::cerr << "Original actual: '" << actual_output << "'" << std::endl;
+    std::cerr << "Original expected: '" << expected_output << "'" << std::endl;
+    std::cerr << "Trimmed actual: '" << actual << "'" << std::endl;
+    std::cerr << "Trimmed expected: '" << expected << "'" << std::endl;
+    std::cerr << "Match: " << (actual == expected ? "true" : "false") << std::endl;
     
     return actual == expected;
 }

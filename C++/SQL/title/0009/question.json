@@ -1,0 +1,16 @@
+{
+"questionContent": "向量点积计算",
+"questionsNumber": 10,
+"testCases": [
+{ "questionContent": "3\n1 4 6\n2 1 5", "answerContent": "36" },
+{ "questionContent": "1\n5\n-3", "answerContent": "-15" },
+{ "questionContent": "5\n0 0 0 0 0\n1 2 3 4 5", "answerContent": "0" },
+{ "questionContent": "4\n-2 -3 4 1\n5 -1 2 -6", "answerContent": "-10 + 3 + 8 - 6 = -5" },
+{ "questionContent": "2\n1000 1000\n1000 1000", "answerContent": "2000000" },
+{ "questionContent": "6\n-1 -2 -3 -4 -5 -6\n-1 -2 -3 -4 -5 -6", "answerContent": "91" },
+{ "questionContent": "7\n1 0 -1 2 0 -2 3\n0 1 0 -1 2 -2 0", "answerContent": "-2" },
+{ "questionContent": "10\n9 8 7 6 5 4 3 2 1 0\n0 1 2 3 4 5 6 7 8 9", "answerContent": "165" },
+{ "questionContent": "3\n-1000 500 -300\n200 -400 100", "answerContent": "-330000" },
+{ "questionContent": "8\n5 5 5 5 5 5 5 5\n5 5 5 5 5 5 5 5", "answerContent": "200" }
+]
+}

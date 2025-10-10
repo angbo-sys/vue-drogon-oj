@@ -34,6 +34,8 @@ add_executable(${PROJECT_NAME} main.cc
         models/Question/Question.h
         models/Question/QuestionType.h
         models/Question/QuestionCollection.h
+        models/Comment/Comment.h
+        models/Comment/Comment.cpp
         services/GetUserInfo.h
         services/GetUserInfo.cpp
         services/GetQuestionService.h
@@ -44,10 +46,18 @@ add_executable(${PROJECT_NAME} main.cc
         services/SubmissionService.cpp
         services/AIChatService.h
         services/AIChatService.cpp
+        services/CommentService.h
+        services/CommentService.cpp
+        services/QuestionAnalysisService.h
+        services/QuestionAnalysisService.cpp
         controllers/SubmissionController.h
         controllers/SubmissionController.cpp
         controllers/QuestionController.h
-        controllers/QuestionController.cpp)
+        controllers/QuestionController.cpp
+        controllers/CommentController.h
+        controllers/CommentController.cpp
+        controllers/QuestionAnalysisController.h
+        controllers/QuestionAnalysisController.cpp)
 
 # ##############################################################################
 # If you include the drogon source code locally in your project, use this method

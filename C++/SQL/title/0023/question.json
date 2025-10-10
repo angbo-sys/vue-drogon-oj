@@ -1,0 +1,46 @@
+{
+    "questionContent": "进制转换与乘法验证",
+    "questionsNumber": 10,
+    "testCases": [
+        {
+            "questionContent": "6 9 42",
+            "answerContent": "13"
+        },
+        {
+            "questionContent": "11 11 121",
+            "answerContent": "3"
+        },
+        {
+            "questionContent": "2 2 4",
+            "answerContent": "5"
+        },
+        {
+            "questionContent": "1 1 1",
+            "answerContent": "2"
+        },
+        {
+            "questionContent": "10 10 100",
+            "answerContent": "2"
+        },
+        {
+            "questionContent": "3 5 13",
+            "answerContent": "6"
+        },
+        {
+            "questionContent": "A B 6E",
+            "answerContent": "16"
+        },
+        {
+            "questionContent": "2 3 6",
+            "answerContent": "7"
+        },
+        {
+            "questionContent": "5 5 25",
+            "answerContent": "6"
+        },
+        {
+            "questionContent": "1 2 4",
+            "answerContent": "0"
+        }
+    ]
+}

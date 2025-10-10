@@ -1,0 +1,16 @@
+{
+"questionContent": "求出 e 的值",
+"questionsNumber": 10,
+"testCases": [
+{ "questionContent": "10", "answerContent": "2.7182818011" },
+{ "questionContent": "2", "answerContent": "2.5000000000" },
+{ "questionContent": "3", "answerContent": "2.6666666667" },
+{ "questionContent": "5", "answerContent": "2.7166666667" },
+{ "questionContent": "7", "answerContent": "2.7182539683" },
+{ "questionContent": "9", "answerContent": "2.7182815256" },
+{ "questionContent": "12", "answerContent": "2.7182818282" },
+{ "questionContent": "15", "answerContent": "2.7182818284" },
+{ "questionContent": "4", "answerContent": "2.7083333333" },
+{ "questionContent": "6", "answerContent": "2.7180555556" }
+]
+}

@@ -423,9 +423,9 @@ std::vector<TestCase> SubmissionService::getQuestionTestCases(int question_id) {
     try {
         // 从题目文件中读取测试用例
         // 根据题目ID动态生成路径
-        // 题目ID 0 对应 0001, 题目ID 1 对应 0002
+        // 题目ID直接对应文件夹编号，不需要+1
         std::stringstream ss;
-        ss << std::setfill('0') << std::setw(4) << (question_id + 1);
+        ss << std::setfill('0') << std::setw(4) << question_id;
         std::string questionPath = "../SQL/title/" + ss.str() + "/question.json";
         
         std::ifstream testFile(questionPath);
@@ -434,8 +434,8 @@ std::vector<TestCase> SubmissionService::getQuestionTestCases(int question_id) {
             Json::Reader reader;
             if (reader.parse(testFile, testData)) {
                 // 解析测试用例
-                if (testData.isMember("questions") && testData["questions"].isArray()) {
-                    for (const auto& question : testData["questions"]) {
+                if (testData.isMember("testCases") && testData["testCases"].isArray()) {
+                    for (const auto& question : testData["testCases"]) {
                         if (question.isMember("questionContent") && question.isMember("answerContent")) {
                             std::string input = question["questionContent"].asString();
                             std::string expected = question["answerContent"].asString();
