@@ -6,7 +6,7 @@ if(APPLE)
     set(CMAKE_C_COMPILER "/Library/Developer/CommandLineTools/usr/bin/cc")
 endif()
 
-project(c_project CXX)
+project(DorgonOJ CXX)
 
 include(CheckIncludeFileCXX)
 
