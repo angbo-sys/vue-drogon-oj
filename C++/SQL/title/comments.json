@@ -1,0 +1,38 @@
+{
+    "commentNumber" : 4,
+    "comments" : 
+    [
+        {
+            "content" : "172",
+            "created_at" : "2025-10-10 11:32:47",
+            "id" : 1,
+            "problem_id" : 1,
+            "user_id" : "1",
+            "username" : "admin"
+        },
+        {
+            "content" : "55",
+            "created_at" : "2025-10-10 11:34:23",
+            "id" : 2,
+            "problem_id" : 1,
+            "user_id" : "7688",
+            "username" : "admin12311"
+        },
+        {
+            "content" : "\u8fd9\u4e2a\u9898\u76ee\u600e\u4e48\u6837",
+            "created_at" : "2025-10-24 11:38:25",
+            "id" : 3,
+            "problem_id" : 1,
+            "user_id" : "3374",
+            "username" : "yangbo"
+        },
+        {
+            "content" : "\u4f60\u597d",
+            "created_at" : "2025-10-24 11:52:14",
+            "id" : 4,
+            "problem_id" : 1,
+            "user_id" : "1",
+            "username" : "admin"
+        }
+    ]
+}

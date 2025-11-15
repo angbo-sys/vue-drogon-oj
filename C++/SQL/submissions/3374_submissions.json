@@ -1,0 +1,33 @@
+{
+    "submissionNumber" : 1,
+    "submissions" : 
+    [
+        {
+            "code" : "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    cout << a + b << endl;\n    return 0;\n}",
+            "error" : "",
+            "execution_time" : 0.560936408,
+            "language" : "cpp",
+            "memory_usage" : 0,
+            "message" : "All test cases passed",
+            "output" : "",
+            "question_id" : 1,
+            "status" : "AC",
+            "submission_id" : "1761277152_115075",
+            "submitted_at" : "1761277155",
+            "test_case_results" : 
+            [
+                "Test case 1: AC",
+                "Test case 2: AC",
+                "Test case 3: AC",
+                "Test case 4: AC",
+                "Test case 5: AC",
+                "Test case 6: AC",
+                "Test case 7: AC",
+                "Test case 8: AC",
+                "Test case 9: AC",
+                "Test case 10: AC"
+            ],
+            "user_id" : "3374"
+        }
+    ]
+}
