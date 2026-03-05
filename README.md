@@ -1,6 +1,6 @@
 # vue-drogon-oj（大学生 C++ 课程设计）
 
-一款基于 Vue + Drogon 的轻量级 OJ 平台（大学生 C++ 课程设计）。
+一款基于 Vue + Drogon 的轻量级 OJ 平台。
 
 当前实现可用于演示题库管理、代码提交/编译、在线评测、评论与简单 AI 辅助（保留 DeepSeek API 接口）。项目仍有若干bug
 
