@@ -1,4 +1,4 @@
-# vue-drogon-oj
+# vue-drogon-oj（大学生 C++ 课程设计）
 
 一款基于 Vue + Drogon 的轻量级 OJ 平台（大学生 C++ 课程设计）。
 
